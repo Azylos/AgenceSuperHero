@@ -1,0 +1,4 @@
+installation projet
+ - composer install
+ - npm install
+
