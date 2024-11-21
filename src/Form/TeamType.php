@@ -21,12 +21,12 @@ class TeamType extends AbstractType
             ])
             ->add('members', EntityType::class, [
                 'class' => SuperHero::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
                 'multiple' => true,
             ])
             ->add('leader', EntityType::class, [
                 'class' => SuperHero::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }

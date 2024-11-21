@@ -27,7 +27,7 @@ class MissionType extends AbstractType
             ->add('dangerLevel')
             ->add('assignedTeam', EntityType::class, [
                 'class' => Team::class,
-                'choice_label' => 'id',
+                'choice_label' => 'name',
             ])
         ;
     }
