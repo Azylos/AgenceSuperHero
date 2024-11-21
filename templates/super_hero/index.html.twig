@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}SuperHero index{% endblock %}
+
+{% block body %}
+    <h1>SuperHero index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>AlterEgo</th>
+                <th>IsAvailable</th>
+                <th>EnergyLevel</th>
+                <th>Biography</th>
+                <th>ImageName</th>
+                <th>CreatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for super_hero in super_heroes %}
+            <tr>
+                <td>{{ super_hero.id }}</td>
+                <td>{{ super_hero.name }}</td>
+                <td>{{ super_hero.alterEgo }}</td>
+                <td>{{ super_hero.isAvailable ? 'Yes' : 'No' }}</td>
+                <td>{{ super_hero.energyLevel }}</td>
+                <td>{{ super_hero.biography }}</td>
+                <td>{{ super_hero.imageName }}</td>
+                <td>{{ super_hero.createdAt ? super_hero.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}">show</a>
+                    <a href="{{ path('app_super_hero_edit', {'id': super_hero.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_super_hero_new') }}">Create new</a>
+{% endblock %}
