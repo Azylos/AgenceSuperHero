@@ -24,7 +24,7 @@ class SuperHero
     private ?string $alterEgo;
 
     #[ORM\Column]
-    private ?bool $avaiable = null;
+    private ?bool $available = null;
 
     #[ORM\Column]
     #[Assert\Range(
@@ -43,15 +43,10 @@ class SuperHero
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    /**
-     * @var Collection<int, Team>
-     */
+    // Associations with Team entity
     #[ORM\ManyToMany(targetEntity: Team::class, mappedBy: 'members')]
     private Collection $teams;
 
-    /**
-     * @var Collection<int, Team>
-     */
     #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'leader')]
     private Collection $leaderTeams;
 
@@ -61,17 +56,18 @@ class SuperHero
         $this->leaderTeams = new ArrayCollection();
     }
 
+    // Getters and Setters
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getname(): ?string
+    public function getName(): ?string
     {
         return $this->name;
     }
 
-    public function setname(string $name): static
+    public function setName(string $name): static
     {
         $this->name = $name;
 
@@ -90,14 +86,14 @@ class SuperHero
         return $this;
     }
 
-    public function isAvaiable(): ?bool
+    public function isAvailable(): ?bool
     {
-        return $this->avaiable;
+        return $this->available;
     }
 
-    public function setAvailable(bool $avaiable): static
+    public function setAvailable(bool $available): static
     {
-        $this->avaiable = $avaiable;
+        $this->available = $available;
 
         return $this;
     }
@@ -150,9 +146,7 @@ class SuperHero
         return $this;
     }
 
-    /**
-     * @return Collection<int, Team>
-     */
+    // Teams relationships
     public function getTeams(): Collection
     {
         return $this->teams;
@@ -177,9 +171,6 @@ class SuperHero
         return $this;
     }
 
-    /**
-     * @return Collection<int, Team>
-     */
     public function getLeaderTeams(): Collection
     {
         return $this->leaderTeams;
@@ -198,7 +189,6 @@ class SuperHero
     public function removeLeaderTeam(Team $leaderTeam): static
     {
         if ($this->leaderTeams->removeElement($leaderTeam)) {
-            // set the owning side to null (unless already changed)
             if ($leaderTeam->getLeader() === $this) {
                 $leaderTeam->setLeader(null);
             }

@@ -18,7 +18,7 @@ class SuperHeroType extends AbstractType
         $builder
             ->add('name')
             ->add('alterEgo')
-            ->add('avaiable')
+            ->add('available')
             ->add('energyLevel')
             ->add('biography')
             ->add('imageName', FileType::class, [
@@ -39,11 +39,11 @@ class SuperHeroType extends AbstractType
             ->add('createdAt', null, [
                 'widget' => 'single_text',
             ])
-            ->add('teams', EntityType::class, [
-                'class' => Team::class,
-                'choice_label' => 'name',
-                'multiple' => true,
-            ])
+            // ->add('teams', EntityType::class, [
+            //     'class' => Team::class,
+            //     'choice_label' => 'name',
+            //     'multiple' => true,
+            // ])
         ;
     }
 
