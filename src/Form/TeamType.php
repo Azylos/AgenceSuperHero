@@ -15,7 +15,7 @@ class TeamType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('isActive')
+            ->add('active')
             ->add('createdAt', null, [
                 'widget' => 'single_text',
             ])

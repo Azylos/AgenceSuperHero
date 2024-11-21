@@ -2,12 +2,14 @@
 
 namespace App\Form;
 
-use App\Entity\SuperHero;
 use App\Entity\Team;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use App\Entity\SuperHero;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 
 class SuperHeroType extends AbstractType
 {
@@ -16,10 +18,24 @@ class SuperHeroType extends AbstractType
         $builder
             ->add('name')
             ->add('alterEgo')
-            ->add('isAvailable')
+            ->add('avaiable')
             ->add('energyLevel')
             ->add('biography')
-            ->add('imageName')
+            ->add('imageName', FileType::class, [
+                'label' => 'Photo du Héro',
+                'mapped' => false,
+                'constraints' => [
+                    new File([
+                        'maxSize' => '2M',
+                        'mimeTypes' => [
+                            'image/jpeg',
+                            'image/png',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Veuillez télécharger une image valide (JPG, PNG ou GIF)',
+                        ])
+                ],
+            ])
             ->add('createdAt', null, [
                 'widget' => 'single_text',
             ])
