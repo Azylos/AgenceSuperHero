@@ -6,6 +6,7 @@ use App\Enum\Statut;
 use App\Repository\MissionRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: MissionRepository::class)]
 class Mission
@@ -34,6 +35,11 @@ class Mission
     private ?string $location;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 1,
+        max: 5,
+        notInRangeMessage: 'Le niveau de danger doit être compris entre {{ min }} et {{ max }}.'
+    )]
     private ?int $dangerLevel;
 
     #[ORM\ManyToOne(inversedBy: 'currentMission')]

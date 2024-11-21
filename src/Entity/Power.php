@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\PowerRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PowerRepository::class)]
 class Power
@@ -21,6 +22,11 @@ class Power
     private ?string $description;
 
     #[ORM\Column]
+    #[Assert\Range(
+        min: 1,
+        max: 5,
+        notInRangeMessage: 'Le niveau doit être compris entre {{ min }} et {{ max }}.'
+    )]
     private ?int $level;
 
     public function getId(): ?int
