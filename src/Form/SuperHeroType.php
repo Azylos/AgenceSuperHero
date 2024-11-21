@@ -4,34 +4,33 @@ namespace App\Form;
 
 use App\Entity\Team;
 use App\Entity\SuperHero;
-use Doctrine\DBAL\Types\StringType;
-use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\AbstractType;
+use phpDocumentor\Reflection\Types\Integer;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Validator\Constraints\Date;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Validator\Constraints\Date;
 
 class SuperHeroType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', StringType::class, [
+            ->add('name', null, [
                 'label'=> 'Nom du Héro',
             ])
-            ->add('alterEgo', StringType::class, [
+            ->add('alterEgo', null, [
                 'label'=> 'Choix du alterEgo',
             ])
-            ->add('available', StringType::class, [
+            ->add('available', null, [
                 'label'=> 'disponiblilité du Héro',
             ])
-            ->add('energyLevel', Integer::class, [
+            ->add('energyLevel', null, [
                 'label'=> 'Niveau d\'énergie',
             ])
-            ->add('biography', StringType::class, [
+            ->add('biography', null, [
                 'label'=> 'Biography',
             ])
             ->add('imageName', FileType::class, [
@@ -49,7 +48,7 @@ class SuperHeroType extends AbstractType
                         ])
                 ],
             ])
-            ->add('createdAt', Date::class, [
+            ->add('createdAt', null, [
                 'label'=> 'Création de la fiche',
                 'widget' => 'single_text',
             ])
