@@ -24,7 +24,7 @@ class SuperHero
     private ?string $alterEgo;
 
     #[ORM\Column]
-    private ?bool $isAvailable = null;
+    private ?bool $avaiable = null;
 
     #[ORM\Column]
     #[Assert\Range(
@@ -90,14 +90,14 @@ class SuperHero
         return $this;
     }
 
-    public function isAvailable(): ?bool
+    public function isAvaiable(): ?bool
     {
-        return $this->isAvailable;
+        return $this->avaiable;
     }
 
-    public function setAvailable(bool $isAvailable): static
+    public function setAvailable(bool $avaiable): static
     {
-        $this->isAvailable = $isAvailable;
+        $this->avaiable = $avaiable;
 
         return $this;
     }

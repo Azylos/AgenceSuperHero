@@ -19,7 +19,7 @@ class Team
     private ?string $name = null;
 
     #[ORM\Column]
-    private ?bool $isActive = null;
+    private ?bool $active = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -64,12 +64,12 @@ class Team
 
     public function isActive(): ?bool
     {
-        return $this->isActive;
+        return $this->active;
     }
 
-    public function setActive(bool $isActive): static
+    public function setActive(bool $active): static
     {
-        $this->isActive = $isActive;
+        $this->active = $active;
 
         return $this;
     }
