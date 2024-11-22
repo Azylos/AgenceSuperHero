@@ -3,39 +3,101 @@
 {% block title %}Cyber Interface{% endblock %}
 
 {% block body %}
-    <body id='accueil'>
-        <div class="container">
-            <h1><span class="auto-type"></span></h1>
+    <body id='accueil' class="container mx-auto px-4 py-8">
+
+        <header class="logoCentral">
+            <img src="ressources/images/kh-logo.png" alt="Kingdom Hearts Logo" class="logo">
+            <img src="ressources/images/keyblade.png" alt="Keyblade" class="keyblade"  height="25%">
+            <!-- Titre avec Typed.js -->
+            <div class="container">
+                <p><span class="auto-type"></span></p>
+            </div>
+        </header>
+
+
+        <!-- Section Statut Système -->
+       <div class="cyber-border p-6 bg-gray-800 rounded-lg">
+            <h2 class="neon-text text-xl mb-6">Statut Système</h2>
+            <div id="status-container" class="space-y-6">
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="hologram">Boucliers</span>
+                        <span class="text-cyan-400" id="shield-value">75%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar-shield" style="width: 75%;"></div>
+                    </div>
+                </div>
+                <div class="space-y-2">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="hologram">Énergie</span>
+                        <span class="text-pink-400" id="energy-value">90%</span>
+                    </div>
+                    <div class="progress-container">
+                        <div class="progress-bar" id="progress-bar-energy" style="width: 90%;"></div>
+                    </div>
+                </div>
+            </div>
         </div>
+    </body>
+{% endblock %}
 
-
-
+{% block javascripts %}
+    {{ parent() }}
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
     <script>
-        function shuffleArray(array) {
-            for (let i = array.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [array[i], array[j]] = [array[j], array[i]];
+        document.addEventListener('DOMContentLoaded', function () {
+
+            function shuffleArray(array) {
+                for (let i = array.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [array[i], array[j]] = [array[j], array[i]];
+                }
             }
-        }
 
-        var phrases = [
-            "Transmission entrante de Coruscant...", 
-            "Alerte: Anomalie détectée dans le secteur 7", 
-            "Mise à jour du système en cours...",
-            "Nouveau rapport de Night City...",
-            "Mise à jour des implants disponible",
-            "Scanner: menace détectée à proximité"
-        ];
+            let phrases = [
+                "Transmission entrante de Coruscant...", 
+                "Alerte: Anomalie détectée dans le secteur 7", 
+                "Mise à jour du système en cours...",
+                "Nouveau rapport de Night City...",
+                "Mise à jour des implants disponible",
+                "Scanner: menace détectée à proximité"
+            ];
+            
 
-        shuffleArray(phrases);
+            shuffleArray(phrases);
 
-        var typed = new Typed(".auto-type", {
-            strings: phrases,
-            typeSpeed: 150,
-            backSpeed: 50,
-            loop: true
+            let typed = new Typed(".auto-type", {
+                strings: phrases,
+                typeSpeed: 110,
+                backSpeed: 50,
+                loop: true,
+            });
+
+            // Animation des barres de statut
+            function animateStatusBars() {
+                const shieldBar = document.getElementById('progress-bar-shield');
+                const shieldValue = document.getElementById('shield-value');
+                const energyBar = document.getElementById('progress-bar-energy');
+                const energyValue = document.getElementById('energy-value');
+
+                function updateProgressBars() {
+                    const shieldPercentage = Math.round(Math.random() * 30 + 70); // Entre 70% et 100%
+                    const energyPercentage = Math.round(Math.random() * 20 + 80); // Entre 80% et 100%
+
+                    // Mettre à jour la largeur des barres
+                    shieldBar.style.width = `${shieldPercentage}%`;
+                    energyBar.style.width = `${energyPercentage}%`;
+
+                    // Mettre à jour les valeurs textuelles à côté de "Boucliers" et "Énergie"
+                    shieldValue.textContent = `${shieldPercentage}%`;
+                    energyValue.textContent = `${energyPercentage}%`;
+                }
+
+                setInterval(updateProgressBars, 3000);
+            }
+
+            animateStatusBars();
         });
     </script>
-    </body>
 {% endblock %}
