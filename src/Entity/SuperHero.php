@@ -34,8 +34,9 @@ class SuperHero
     )]
     private ?int $energyLevel;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $biography = null;
+    
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $imageName;
@@ -50,10 +51,17 @@ class SuperHero
     #[ORM\OneToMany(targetEntity: Team::class, mappedBy: 'leader')]
     private Collection $leaderTeams;
 
+    /**
+     * @var Collection<int, Power>
+     */
+    #[ORM\ManyToMany(targetEntity: Power::class, inversedBy: 'superHeroes')]
+    private Collection $powers;
+
     public function __construct()
     {
         $this->teams = new ArrayCollection();
         $this->leaderTeams = new ArrayCollection();
+        $this->powers = new ArrayCollection();
     }
 
     // Getters and Setters
@@ -193,6 +201,30 @@ class SuperHero
                 $leaderTeam->setLeader(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Power>
+     */
+    public function getPowers(): Collection
+    {
+        return $this->powers;
+    }
+
+    public function addPower(Power $power): static
+    {
+        if (!$this->powers->contains($power)) {
+            $this->powers->add($power);
+        }
+
+        return $this;
+    }
+
+    public function removePower(Power $power): static
+    {
+        $this->powers->removeElement($power);
 
         return $this;
     }

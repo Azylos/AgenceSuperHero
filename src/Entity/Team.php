@@ -31,7 +31,7 @@ class Team
     private Collection $members;
 
     #[ORM\ManyToOne(inversedBy: 'leaderTeams')]
-    private ?SuperHero $leader;
+    private ?SuperHero $leader = null;
 
     /**
      * @var Collection<int, Mission>
@@ -105,6 +105,11 @@ class Team
 
     public function removeMember(SuperHero $member): static
     {
+        if ($this->leader === $member) {
+            // Si le leader est enlevé de la liste des membres, nous devons retirer le leader aussi.
+            $this->leader = null;
+        }
+
         $this->members->removeElement($member);
 
         return $this;
@@ -117,6 +122,11 @@ class Team
 
     public function setLeader(?SuperHero $leader): static
     {
+        if ($leader !== null && !$this->members->contains($leader)) {
+            // Si le leader n'est pas déjà un membre de l'équipe, on l'ajoute à la liste des membres.
+            $this->addMember($leader);
+        }
+
         $this->leader = $leader;
 
         return $this;
