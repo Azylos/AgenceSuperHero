@@ -1,20 +1,61 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Cyber Interface{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+<Section class="bg-gray-900 min-h-screen text-gray-100">
+    <nav class="cyber-border bg-black/80 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="neon-text text-2xl font-bold">CYBER COMMAND</h1>
+            <div class="space-x-4">
+                <a href="#" class="hologram hover:text-pink-500 transition-colors">Dashboard</a>
+                <a href="#" class="hologram hover:text-pink-500 transition-colors">Missions</a>
+                <a href="#" class="hologram hover:text-pink-500 transition-colors">Arsenal</a>
+            </div>
+        </div>
+    </nav>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <main class="container mx-auto p-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Section Messages -->
+            <div class="cyber-border bg-black/60 p-6 rounded-lg">
+                <h2 class="neon-text text-xl mb-4">Transmissions</h2>
+                <div id="messages-container" class="space-y-4">
+                    {% for message in messages %}
+                        <div class="message-item opacity-0 transform translate-y-4" 
+                             data-message-id="{{ message.id }}">
+                            {{ message.content }}
+                        </div>
+                    {% endfor %}
+                </div>
+                <button id="load-more" 
+                        class="mt-4 bg-pink-700 hover:bg-pink-600 text-white px-4 py-2 rounded 
+                               transition-colors duration-300 cyber-border">
+                    Charger plus
+                </button>
+            </div>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>C:/Users/tbarret.cda/Documents/symfony/HeroAgence/src/Controller/HomeController.php</code></li>
-        <li>Your template at <code>C:/Users/tbarret.cda/Documents/symfony/HeroAgence/templates/home/index.html.twig</code></li>
-    </ul>
-</div>
+            <!-- Section Statuts -->
+            <div class="cyber-border bg-black/60 p-6 rounded-lg">
+                <h2 class="neon-text text-xl mb-4">Statut Système</h2>
+                <div id="status-container" class="space-y-4">
+                    <div class="flex justify-between items-center">
+                        <span>Boucliers</span>
+                        <div class="w-64 h-4 bg-gray-700 rounded">
+                            <div class="shield-bar h-full bg-cyan-500 rounded" 
+                                 style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span>Énergie</span>
+                        <div class="w-64 h-4 bg-gray-700 rounded">
+                            <div class="energy-bar h-full bg-pink-500 rounded" 
+                                 style="width: 90%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
 {% endblock %}
