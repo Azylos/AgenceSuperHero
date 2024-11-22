@@ -24,21 +24,4 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/api/messages', name: 'api_messages')]
-    public function loadMessages(Request $request): JsonResponse
-    {
-        $page = $request->query->get('page', 1);
-        
-        // Simuler des messages supplémentaires
-        $messages = [
-            ['id' => $page * 3 + 1, 'content' => 'Nouveau rapport de Night City...'],
-            ['id' => $page * 3 + 2, 'content' => 'Mise à jour des implants disponible'],
-            ['id' => $page * 3 + 3, 'content' => 'Scanner: menace détectée à proximité'],
-        ];
-
-        return new JsonResponse([
-            'messages' => $messages,
-            'hasMore' => $page < 3
-        ]);
-    }
 }

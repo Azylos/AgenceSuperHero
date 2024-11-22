@@ -1,3 +1,31 @@
 body {
     background-color: skyblue;
 }
+
+#accueil {
+    background-image: url('../img/lobby.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container{
+    width: 100vw;
+    height: 100vh;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container h1{
+    font-size: 80px;
+    font-weight: 600;
+}
+
+.container h1 span{
+    color: #e639a1;
+}
+
