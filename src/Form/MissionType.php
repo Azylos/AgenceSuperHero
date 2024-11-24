@@ -4,9 +4,11 @@ namespace App\Form;
 
 use App\Entity\Mission;
 use App\Entity\Team;
+use App\Enum\Statut;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -45,9 +47,17 @@ class MissionType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('status', null, [
+            ->add('status', ChoiceType::class, [
                 'label' => 'Statut de la Mission',
+                'choices' => [
+                    'En Attente' => Statut::PENDING,
+                    'En Cours' => Statut::IN_PROGRESS,
+                    'Terminé' => Statut::COMPLETED,
+                    'Échoué' => Statut::FAILED,
+                ],
                 'required' => true,
+                'expanded' => false, // false pour liste déroulante, true pour boutons radio
+                'multiple' => false, // Choix unique
             ])
             ->add('startAt', null, [
                 'label' => 'Date de Début',
@@ -91,8 +101,7 @@ class MissionType extends AbstractType
                 'choice_label' => 'name',
                 'label' => 'Équipe Assignée',
                 'required' => true,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void

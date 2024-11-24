@@ -1,47 +1,52 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mission index{% endblock %}
+{% block title %}Mission Index{% endblock %}
 
 {% block body %}
-    <h1>Mission index</h1>
+    <div class="mission-index-wrapper">
+        <h1 class="neon-title">Mission Index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>StartAt</th>
-                <th>EndAt</th>
-                <th>Location</th>
-                <th>DangerLevel</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for mission in missions %}
-            <tr>
-                <td>{{ mission.id }}</td>
-                <td>{{ mission.title }}</td>
-                <td>{{ mission.description }}</td>
-                <td>{{ mission.status }}</td>
-                <td>{{ mission.startAt ? mission.startAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ mission.location }}</td>
-                <td>{{ mission.dangerLevel }}</td>
-                <td>
-                    <a href="{{ path('app_mission_show', {'id': mission.id}) }}">show</a>
-                    <a href="{{ path('app_mission_edit', {'id': mission.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mission-table-container">
+            <table class="mission-table">
+                <thead>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Description</th>
+                        <th>Status</th>
+                        <th>Date de début</th>
+                        <th>Date de fin</th>
+                        <th>Localisation</th>
+                        <th>Niveau de danger</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for mission in missions %}
+                        <tr>
+                            <td>{{ mission.title }}</td>
+                            <td>{{ mission.description }}</td>
+                            <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
+                            <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
+                            <td>{{ mission.endAt ? mission.endAt|date('d-m-Y H:i:s') : '' }}</td>
+                            <td>{{ mission.location }}</td>
+                            <td>{{ mission.dangerLevel }}</td>
+                            <td class="actions">
+                                <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
+                                <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="9" class="no-records">Aucune mission trouver</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_mission_new') }}">Create new</a>
+        <div class="create-new-container">
+            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
+            <a href="{{ path('app_mission_new') }}" class="create-new-btn">Créer une nouvelle mission</a>
+        </div>
+    </div>
 {% endblock %}

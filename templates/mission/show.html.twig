@@ -3,48 +3,50 @@
 {% block title %}Mission{% endblock %}
 
 {% block body %}
-    <h1>Mission</h1>
+    <div class="mission-detail-wrapper">
+        <h1 class="neon-title">Détails de la Mission</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ mission.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ mission.title }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ mission.description }}</td>
-            </tr>
-            <tr>
-                <th>Status</th>
-                <td>{{ mission.status }}</td>
-            </tr>
-            <tr>
-                <th>StartAt</th>
-                <td>{{ mission.startAt ? mission.startAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>EndAt</th>
-                <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>Location</th>
-                <td>{{ mission.location }}</td>
-            </tr>
-            <tr>
-                <th>DangerLevel</th>
-                <td>{{ mission.dangerLevel }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="mission-table-container">
+            <table class="mission-table">
+                <tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <td>{{ mission.title }}</td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>{{ mission.description }}</td>
+                    </tr>
+                    <tr>
+                        <th>Statut</th>
+                        <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de Début</th>
+                        <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Date de Fin</th>
+                        <td>{{ mission.endAt ? mission.endAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Localisation</th>
+                        <td>{{ mission.location }}</td>
+                    </tr>
+                    <tr>
+                        <th>Niveau de Danger</th>
+                        <td>{{ mission.dangerLevel }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_mission_index') }}">back to list</a>
-
-    <a href="{{ path('app_mission_edit', {'id': mission.id}) }}">edit</a>
-
-    {{ include('mission/_delete_form.html.twig') }}
+        <div class="actions-container">
+            <a href="{{ path('app_mission_index') }}" class="action-btn back-btn">Retour à la liste</a>
+            <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Éditer</a>
+            <div class="delete-container">
+                {{ include('mission/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

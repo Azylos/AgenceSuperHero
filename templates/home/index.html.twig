@@ -18,29 +18,35 @@
             </div>
         </div>
         <!-- Section Statut Système -->
-        <div class="status-box cyber-border">
+        <div id="status-system-container" class="status-box cyber-border">
             <h2 class="neon-text">Statut Système</h2>
             <div id="status-container">
                 <div class="status-item">
                     <div class="status-header">
                         <span class="hologram">Boucliers</span>
-                        <span class="shield-value" id="shield-value">75%</span>
+                        <span class="shield-value" id="shield-value">97%</span>
                     </div>
                     <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar-shield" style="width: 75%;"></div>
+                        <div class="progress-bar" id="progress-bar-shield" style="width: 97%;"></div>
                     </div>
                 </div>
                 <div class="status-item">
                     <div class="status-header">
                         <span class="hologram">Énergie</span>
-                        <span class="energy-value" id="energy-value">90%</span>
+                        <span class="energy-value" id="energy-value">85%</span>
                     </div>
                     <div class="progress-container">
-                        <div class="progress-bar" id="progress-bar-energy" style="width: 90%;"></div>
+                        <div class="progress-bar" id="progress-bar-energy" style="width: 85%;"></div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Zone cliquable pour les missions -->
+        <a href="{{ path('app_mission_index') }}" class="mission-link"></a>
+
+        <!-- Zone cliquable pour l'équipe -->
+        <a href="{{ path('app_team_index') }}" class="team-link"></a>
     </body>
 {% endblock %}
 

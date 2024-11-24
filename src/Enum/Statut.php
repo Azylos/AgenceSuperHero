@@ -4,8 +4,8 @@ namespace App\Enum;
 
 enum Statut: string
 {
-    case PENDING = 'PENDING';
-    case IN_PROGRESS = 'IN_PROGRESS';
-    case COMPLETED = 'COMPLETED';
-    case FAILED = 'FAILED';
+    case PENDING = 'EN ATTENTE';
+    case IN_PROGRESS = 'EN COURS';
+    case COMPLETED = 'TERMINÉ';
+    case FAILED = 'ÉCHOUÉ ';
 }

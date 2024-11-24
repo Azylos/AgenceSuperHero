@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Mission{% endblock %}
+{% block title %}Éditer Mission{% endblock %}
 
 {% block body %}
-    <h1>Edit Mission</h1>
+    <div class="mission-edit-wrapper">
+        <h1 class="neon-title">Édition de la mission</h1>
 
-    {{ include('mission/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="mission-form-container">
+            {{ include('mission/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+        </div>
 
-    <a href="{{ path('app_mission_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_mission_index') }}" class="back-btn">Retour à la liste des missions</a>
+        </div>
 
-    {{ include('mission/_delete_form.html.twig') }}
+        <div class="delete-container">
+            {{ include('mission/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

@@ -1,12 +1,23 @@
 :root {
     --neon-pink: #ff0080;
     --cyber-blue: #00ffff;
+    --dark-background: #0a0a0a;
+    --table-border: #444;
+    --text-white: #e0e0e0;
+    --text-gray: #9e9e9e;
+    --table-hover: rgba(0, 255, 255, 0.1);
+    --button-hover: rgba(255, 0, 128, 0.2);
+    --highlight-blue: #0088cc;
+    --danger-red: #ff0000;
 }
 
 body {
-    background-color: skyblue;
+    background-color: #101820; /* Couleur sombre pour renforcer l'immersion */
+    color: var(--text-white);
+    font-family: Arial, sans-serif;
 }
 
+/* Section d'accueil */
 #accueil {
     background-image: url('../img/lobby.png');
     background-size: cover;
@@ -17,7 +28,8 @@ body {
     position: relative;
 }
 
-.container{
+/* Container général */
+.container {
     width: 100vw;
     height: 63vh;
     color: #fff;
@@ -26,32 +38,42 @@ body {
     justify-content: center;
 }
 
-.container p{
+.container p {
     font-size: 20px;
     font-weight: 600;
     background: #333;
 }
 
-.container p span{
+.container p span {
     color: #e639a1;
 }
 
-.status-box {
+/* Status System Container */
+#status-system-container {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 200px; /* Taille du petit carré */
+    top: 10%;
+    left: 4%;
+    width: 200px;
     padding: 16px;
-    background-color: #333; /* Couleur de fond sombre */
+    background-color: #333;
     border: 2px solid var(--cyber-blue);
     border-radius: 10px;
     box-shadow: 0 0 10px var(--cyber-blue);
-    z-index: 1000; /* Pour s'assurer que la boîte est au-dessus des autres éléments */
+    z-index: 1000;
 }
 
+.neon-title {
+    text-align: center;
+    color: var(--neon-pink);
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    text-shadow: 0 0 15px var(--neon-pink), 0 0 30px var(--neon-pink);
+}
+
+/* Texte Neon & Hologram */
 .neon-text {
-    font-size: 1.25rem; /* Taille du texte équivalente à text-xl */
-    margin-bottom: 16px; /* Équivalent à mb-6 en Tailwind */
+    font-size: 1.25rem;
     color: var(--neon-pink);
     text-transform: uppercase;
     animation: neonGlow 1.5s ease-in-out infinite alternate;
@@ -64,13 +86,13 @@ body {
     font-weight: bold;
 }
 
+/* Barres de progression */
 .shield-value,
 .energy-value {
     color: var(--cyber-blue);
     font-weight: bold;
 }
 
-/* Status item styles */
 .status-item {
     margin-bottom: 20px;
 }
@@ -92,23 +114,306 @@ body {
 
 .progress-bar {
     height: 100%;
-    background-color: #00bcd4; /* Cyan par défaut pour les boucliers */
+    background-color: #00bcd4;
     transition: width 0.4s ease;
 }
 
 #progress-bar-energy {
-    background-color: #ff4081; /* Rose pour l'énergie */
+    background-color: #ff4081;
 }
 
-/* Effets néon et holographiques */
+/* Zones Cliquables */
+.mission-link,
+.team-link {
+    position: absolute;
+    background: rgba(0, 0, 0, 0); /* Cliquable mais invisible */
+    z-index: 500;
+}
+
+.mission-link {
+    top: 20%;
+    left: 30%;
+    width: 40%;
+    height: 10%;
+}
+
+.team-link {
+    top: 20%;
+    right: 5%;
+    width: 15%;
+    height: 50%;
+}
+
+/* Effets d'animation */
 @keyframes neonGlow {
-    0% { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
-    100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink), 0 0 40px var(--neon-pink); }
+    0% { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
+    100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
 }
 
 @keyframes hologramFlicker {
-    0% { opacity: 0.8; }
+    0%, 100% { opacity: 0.8; }
     50% { opacity: 1; }
-    100% { opacity: 0.8; }
 }
 
+/* Wrapper général pour les missions */
+.mission-index-wrapper, 
+.mission-detail-wrapper, 
+.mission-edit-wrapper, 
+.mission-create-wrapper {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
+    box-shadow: 0 0 15px var(--cyber-blue);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-table-container {
+    overflow-x: auto;
+}
+
+/* Table des Missions */
+.mission-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 2rem;
+    color: var(--text-white);
+    background-color: var(--dark-background);
+    border: 1px solid var(--table-border);
+}
+
+.mission-table th, .mission-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid var(--table-border);
+}
+
+.mission-table th {
+    background-color: #2a2a2a;
+    color: var(--cyber-blue);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.mission-table tr:hover {
+    background-color: var(--table-hover);
+}
+
+/* Champs du Formulaire */
+form input[type="text"],
+form input[type="datetime-local"],
+form input[type="number"],
+form textarea,
+form select {
+    width: 100%;
+    padding: 0.9rem;
+    margin: 1.2rem 0;
+    border: 1px solid var(--input-border);
+    border-radius: 8px;
+    background-color: #111111;
+    color: var(--text-white);
+    transition: border-color 0.3s, box-shadow 0.3s;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+form input[type="text"]:focus,
+form input[type="datetime-local"]:focus,
+form input[type="number"]:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: var(--cyber-blue);
+    box-shadow: 0 0 20px var(--cyber-blue);
+}
+
+form label {
+    font-weight: bold;
+    color: var(--cyber-blue);
+    margin-bottom: 0.5rem;
+    display: block;
+    text-transform: uppercase;
+}
+
+/* Boutons */
+form button,
+.back-btn,
+.delete-form button {
+    text-transform: uppercase;
+    border-radius: 8px;
+    padding: 1rem 2.5rem;
+    font-weight: bold;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+form button {
+    background-color: var(--neon-pink);
+    border: none;
+    color: var(--dark-background);
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+form button:hover {
+    background-color: #ff4081;
+    box-shadow: 0 0 25px var(--neon-pink), 0 0 40px #ff4081;
+    transform: scale(1.05);
+}
+
+.back-btn {
+    color: var(--cyber-blue);
+    border: 2px solid var(--cyber-blue);
+    box-shadow: 0 0 15px var(--cyber-blue);
+}
+
+.back-btn:hover {
+    background-color: var(--cyber-blue);
+    color: var(--dark-background);
+    box-shadow: 0 0 25px var(--cyber-blue);
+    transform: scale(1.05);
+}
+
+.delete-form button {
+    background-color: var(--danger-red);
+    box-shadow: 0 0 15px var(--danger-red);
+}
+
+.delete-form button:hover {
+    background-color: #ff4444;
+    box-shadow: 0 0 25px var(--danger-red);
+    transform: scale(1.05);
+}
+
+/* Conteneur des actions */
+.actions {
+    display: flex;
+    gap: 1rem; /* Ajoute un espace entre chaque bouton */
+    justify-content: center; /* Centrer les boutons horizontalement dans leur colonne */
+    flex-wrap: wrap; /* Les boutons passent à la ligne si nécessaire */
+}
+
+.action-btn {
+    padding: 0.7rem 1.5rem;
+    border-radius: 5px;
+    text-decoration: none;
+    text-transform: uppercase;
+    border: 2px solid;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 0 10px;
+    display: inline-block; /* Assurez-vous que les boutons soient bien alignés */
+    color: var(--text-white);
+}
+
+.show-btn {
+    border-color: var(--cyber-blue);
+    box-shadow: 0 0 10px var(--cyber-blue);
+}
+
+.show-btn:hover {
+    background-color: var(--cyber-blue);
+    color: var(--dark-background);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--cyber-blue);
+}
+
+.edit-btn {
+    border-color: var(--neon-pink);
+    box-shadow: 0 0 10px var(--neon-pink);
+}
+
+.edit-btn:hover {
+    background-color: var(--neon-pink);
+    color: var(--dark-background);
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--neon-pink);
+}
+
+/* Aucun enregistrement trouvé */
+.no-records {
+    text-align: center;
+    padding: 1rem;
+    color: var(--text-gray);
+}
+
+/* Bouton de création de nouvelle mission */
+.create-new-container {
+    text-align: center;
+    margin-top: 2rem;
+}
+
+.create-new-btn {
+    text-transform: uppercase;
+    color: var(--neon-pink);
+    text-decoration: none;
+    font-weight: bold;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    border: 2px solid var(--neon-pink);
+    transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+    box-shadow: 0 0 15px var(--neon-pink);
+}
+
+.create-new-btn:hover {
+    background-color: var(--neon-pink);
+    color: var(--dark-background);
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--neon-pink);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .mission-edit-wrapper, .mission-create-wrapper, .mission-detail-wrapper {
+        max-width: 90%;
+    }
+
+    .neon-title {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .mission-index-wrapper,
+    .mission-edit-wrapper,
+    .mission-create-wrapper,
+    .mission-detail-wrapper {
+        padding: 1.5rem;
+    }
+
+    .neon-title {
+        font-size: 1.8rem;
+    }
+
+    form input,
+    form button,
+    .back-btn,
+    .delete-form button {
+        padding: 0.8rem 1.8rem;
+    }
+
+    .actions {
+        justify-content: flex-start; /* Pour aligner à gauche les boutons sur les plus petits écrans */
+    }
+}
+
+@media (max-width: 480px) {
+    .neon-title {
+        font-size: 1.5rem;
+    }
+
+    .actions {
+        flex-direction: column;
+        gap: 1rem; /* Réduire l'espace pour s'adapter aux petits écrans */
+        align-items: center; /* Centrer les boutons dans chaque cellule */
+    }
+
+    form input,
+    form textarea {
+        margin: 0.5rem 0;
+    }
+
+    form button,
+    .back-btn,
+    .delete-form button {
+        padding: 0.7rem 1.5rem;
+    }
+}
