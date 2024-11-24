@@ -10,6 +10,20 @@
             {{ include('team/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
         </div>
 
+        <div class="team-members-container">
+            <h2>Membres Actuels de l'Équipe</h2>
+            {% if members|length > 0 %}
+                <ul>
+                    {% for member in members %}
+                        <li>{{ member.name }} ({{ member.alterEgo }})
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Aucun membre n'est actuellement dans cette équipe.</p>
+            {% endif %}
+        </div>
+
         <div class="back-container">
             <a href="{{ path('app_team_index') }}" class="back-btn">Retour à la liste des équipes</a>
         </div>
