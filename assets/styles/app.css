@@ -17,62 +17,9 @@ body {
     position: relative;
 }
 
-.logoCentral {
-    bottom: 7vh;
-    height: 50vh;
-    width: 50vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-}
-
-/* Centrer et superposer le logo et la keyblade */
-.logo-container {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-}
-
-.logo {
-    top: 10vh;
-    width: 300px;
-    animation: floatAnimation 3s ease-in-out infinite;
-    position: relative; /* Pour être au-dessus de la keyblade */
-    z-index: 2; /* Assurez-vous que le logo est au-dessus de la keyblade */
-}
-
-.keyblade {
-    position: absolute;
-    width: 400px; /* Ajuster la taille pour une superposition parfaite */
-    opacity: 0.35;
-    animation: rotate 20s linear infinite;
-    z-index: 1; /* Keyblade en arrière-plan */
-}
-
-/* Animation du logo */
-@keyframes floatAnimation {
-    0% { transform: translateY(0); }
-    50% { transform: translateY(-20px); }
-    100% { transform: translateY(0); }
-}
-
-/* Animation de la keyblade */
-@keyframes rotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-}
-
 .container{
     width: 100vw;
-    height: 100vh;
+    height: 63vh;
     color: #fff;
     display: flex;
     align-items: center;
@@ -82,69 +29,65 @@ body {
 .container p{
     font-size: 20px;
     font-weight: 600;
+    background: #333;
 }
 
 .container p span{
     color: #e639a1;
 }
 
-@keyframes neonGlow {
-    0% { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
-    100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink), 0 0 40px var(--neon-pink); }
-}
-
-@keyframes hologramFlicker {
-    0% { opacity: 0.8; }
-    50% { opacity: 1; }
-    100% { opacity: 0.8; }
-}
-
-.cyber-border {
-    position: relative;
+.status-box {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 200px; /* Taille du petit carré */
+    padding: 16px;
+    background-color: #333; /* Couleur de fond sombre */
     border: 2px solid var(--cyber-blue);
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(10px);
-    border-radius: 0.5rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px var(--cyber-blue);
+    z-index: 1000; /* Pour s'assurer que la boîte est au-dessus des autres éléments */
 }
 
-@keyframes borderScan {
-    0% { transform: translateX(-50%) translateY(-50%) rotate(0deg); }
-    100% { transform: translateX(-50%) translateY(-50%) rotate(360deg); }
+.neon-text {
+    font-size: 1.25rem; /* Taille du texte équivalente à text-xl */
+    margin-bottom: 16px; /* Équivalent à mb-6 en Tailwind */
+    color: var(--neon-pink);
+    text-transform: uppercase;
+    animation: neonGlow 1.5s ease-in-out infinite alternate;
+    text-align: center;
 }
 
 .hologram {
     animation: hologramFlicker 2s ease-in-out infinite;
     color: var(--cyber-blue);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.neon-text {
-    animation: neonGlow 1.5s ease-in-out infinite alternate;
-    color: var(--neon-pink);
-    text-transform: uppercase;
-    letter-spacing: 2px;
     font-weight: bold;
 }
 
-/* Positionner le bloc "Statut Système" à gauche */
-.statut-system-container {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    transform: translateY(-50%);
-    width: 200px; /* Ajustez cette valeur selon l'espace disponible */
+.shield-value,
+.energy-value {
+    color: var(--cyber-blue);
+    font-weight: bold;
 }
 
-/* Styles pour les barres de progression */
+/* Status item styles */
+.status-item {
+    margin-bottom: 20px;
+}
+
+.status-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
 .progress-container {
     width: 100%;
-    background-color: #333;
+    background-color: #222;
     border-radius: 10px;
     overflow: hidden;
-    margin: 20px 0;
-    height: 25px;
+    height: 10px;
 }
 
 .progress-bar {
@@ -155,5 +98,17 @@ body {
 
 #progress-bar-energy {
     background-color: #ff4081; /* Rose pour l'énergie */
+}
+
+/* Effets néon et holographiques */
+@keyframes neonGlow {
+    0% { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
+    100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink), 0 0 40px var(--neon-pink); }
+}
+
+@keyframes hologramFlicker {
+    0% { opacity: 0.8; }
+    50% { opacity: 1; }
+    100% { opacity: 0.8; }
 }
 
