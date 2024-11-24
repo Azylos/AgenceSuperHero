@@ -41,6 +41,20 @@
                         <th>Date de Création</th>
                         <td>{{ super_hero.createdAt ? super_hero.createdAt|date('d-m-Y H:i:s') : '' }}</td>
                     </tr>
+                    <tr>
+                        <th>Pouvoirs</th>
+                        <td>
+                            {% if super_hero.powers|length > 0 %}
+                                <ul>
+                                    {% for power in super_hero.powers %}
+                                        <li>{{ power.name }} - Niveau: {{ power.level }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                Aucun pouvoir attribué
+                            {% endif %}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>

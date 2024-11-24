@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Mission{% endblock %}
+{% block title %}Détails de la Mission{% endblock %}
 
 {% block body %}
     <div class="mission-detail-wrapper">
@@ -10,6 +10,10 @@
             <table class="mission-table">
                 <tbody>
                     <tr>
+                        <th>Id</th>
+                        <td>{{ mission.id }}</td>
+                    </tr>
+                    <tr>
                         <th>Titre</th>
                         <td>{{ mission.title }}</td>
                     </tr>
@@ -18,7 +22,7 @@
                         <td>{{ mission.description }}</td>
                     </tr>
                     <tr>
-                        <th>Statut</th>
+                        <th>Status</th>
                         <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
                     </tr>
                     <tr>
@@ -37,16 +41,41 @@
                         <th>Niveau de Danger</th>
                         <td>{{ mission.dangerLevel }}</td>
                     </tr>
+                    <tr>
+                        <th>Équipe Assignée</th>
+                        <td>
+                            {% if mission.assignedTeam %}
+                                <strong>{{ mission.assignedTeam.name }}</strong>
+                                <ul>
+                                    <li><strong>Leader :</strong> {{ mission.assignedTeam.leader ? mission.assignedTeam.leader.name : 'Non spécifié' }}</li>
+                                    <li><strong>Membres :</strong>
+                                        {% if mission.assignedTeam.members|length > 0 %}
+                                            <ul>
+                                                {% for member in mission.assignedTeam.members %}
+                                                    <li>{{ member.name }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        {% else %}
+                                            Aucun membre dans cette équipe
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            {% else %}
+                                Aucune équipe assignée
+                            {% endif %}
+                        </td>
+                    </tr>
                 </tbody>
             </table>
         </div>
 
         <div class="actions-container">
-            <a href="{{ path('app_mission_index') }}" class="action-btn back-btn">Retour à la liste</a>
-            <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Éditer</a>
-            <div class="delete-container">
-                {{ include('mission/_delete_form.html.twig') }}
-            </div>
+            <a href="{{ path('app_mission_index') }}" class="action-btn back-btn">Retour à la liste des missions</a>
+            <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
+        </div>
+
+        <div class="delete-container">
+            {{ include('mission/_delete_form.html.twig') }}
         </div>
     </div>
 {% endblock %}

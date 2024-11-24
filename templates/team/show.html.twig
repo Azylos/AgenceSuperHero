@@ -18,12 +18,33 @@
                         <td>{{ team.name }}</td>
                     </tr>
                     <tr>
-                        <th>Actif</th>
-                        <td>{{ team.isActive ? 'Oui' : 'Non' }}</td>
+                        <th>Active</th>
+                        <td>{{ team.active ? 'Oui' : 'Non' }}</td>
                     </tr>
                     <tr>
                         <th>Date de Création</th>
                         <td>{{ team.createdAt ? team.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                    </tr>
+                    <tr>
+                        <th>Membres</th>
+                        <td>
+                            {% if team.members|length > 0 %}
+                                <ul>
+                                    {% for member in team.members %}
+                                        <li>
+                                            {{ member.name }}
+                                            {% if team.leader is same as(member) %}
+                                                <span class="role-label">(Leader)</span>
+                                            {% else %}
+                                                <span class="role-label">(Membre)</span>
+                                            {% endif %}
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            {% else %}
+                                Aucun membre dans cette équipe
+                            {% endif %}
+                        </td>
                     </tr>
                 </tbody>
             </table>
