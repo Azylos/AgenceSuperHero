@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Team index{% endblock %}
+{% block title %}liste des Équipes{% endblock %}
 
 {% block body %}
-    <h1>Team index</h1>
+    <div class="mission-index-wrapper">
+        <h1 class="neon-title">liste des Équipes</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>IsActive</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for team in teams %}
-            <tr>
-                <td>{{ team.id }}</td>
-                <td>{{ team.name }}</td>
-                <td>{{ team.isActive ? 'Yes' : 'No' }}</td>
-                <td>{{ team.createdAt ? team.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_team_show', {'id': team.id}) }}">show</a>
-                    <a href="{{ path('app_team_edit', {'id': team.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mission-table-container">
+            <table class="mission-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actif</th>
+                        <th>Date de Création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for team in teams %}
+                    <tr>
+                        <td>{{ team.name }}</td>
+                        <td>{{ team.isActive ? 'Oui' : 'Non' }}</td>
+                        <td>{{ team.createdAt ? team.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        <td class="actions">
+                            <a href="{{ path('app_team_show', {'id': team.id}) }}" class="action-btn show-btn">Voir</a>
+                            <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="action-btn edit-btn">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-records">Aucune équipe trouvée</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_team_new') }}">Create new</a>
+        <div class="create-new-container">
+            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
+            <a href="{{ path('app_power_index') }}" class="action-btn show-btn">Liste de pouvoir</a>
+            <a href="{{ path('app_super_hero_index') }}" class="action-btn show-btn">Liste des super héro</a>
+            <a href="{{ path('app_team_new') }}" class="create-new-btn">Créer une nouvelle équipe</a>
+        </div>
+    </div>
 {% endblock %}

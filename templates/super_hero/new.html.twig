@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New SuperHero{% endblock %}
+{% block title %}Nouveau Super-Héros{% endblock %}
 
 {% block body %}
-    <h1>Create new SuperHero</h1>
+    <div class="mission-create-wrapper">
+        <h1 class="neon-title">Création d'un Nouveau Super-Héros</h1>
 
-    {{ include('super_hero/_form.html.twig') }}
+        <div class="mission-form-container">
+            {{ include('super_hero/_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('app_super_hero_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_super_hero_index') }}" class="back-btn">Retour à la liste des super-héros</a>
+        </div>
+    </div>
 {% endblock %}

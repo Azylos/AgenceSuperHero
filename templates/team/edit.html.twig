@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Team{% endblock %}
+{% block title %}Éditer Équipe{% endblock %}
 
 {% block body %}
-    <h1>Edit Team</h1>
+    <div class="mission-edit-wrapper">
+        <h1 class="neon-title">Édition de l'Équipe</h1>
 
-    {{ include('team/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="mission-form-container">
+            {{ include('team/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
+        </div>
 
-    <a href="{{ path('app_team_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_team_index') }}" class="back-btn">Retour à la liste des équipes</a>
+        </div>
 
-    {{ include('team/_delete_form.html.twig') }}
+        <div class="delete-container">
+            {{ include('team/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

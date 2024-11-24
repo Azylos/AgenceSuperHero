@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Team{% endblock %}
+{% block title %}Nouvelle Équipe{% endblock %}
 
 {% block body %}
-    <h1>Create new Team</h1>
+    <div class="mission-create-wrapper">
+        <h1 class="neon-title">Création d'une Nouvelle Équipe</h1>
 
-    {{ include('team/_form.html.twig') }}
+        <div class="mission-form-container">
+            {{ include('team/_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('app_team_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_team_index') }}" class="back-btn">Retour à la liste des équipes</a>
+        </div>
+    </div>
 {% endblock %}

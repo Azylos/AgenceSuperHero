@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit SuperHero{% endblock %}
+{% block title %}Éditer Super-Héros{% endblock %}
 
 {% block body %}
-    <h1>Edit SuperHero</h1>
+    <div class="mission-edit-wrapper">
+        <h1 class="neon-title">Édition du Super-Héros</h1>
 
-    {{ include('super_hero/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="mission-form-container">
+            {{ include('super_hero/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
+        </div>
 
-    <a href="{{ path('app_super_hero_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_super_hero_index') }}" class="back-btn">Retour à la liste des super-héros</a>
+        </div>
 
-    {{ include('super_hero/_delete_form.html.twig') }}
+        <div class="delete-container">
+            {{ include('super_hero/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

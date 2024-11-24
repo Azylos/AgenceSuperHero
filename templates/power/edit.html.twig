@@ -1,13 +1,21 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Power{% endblock %}
+{% block title %}Éditer Pouvoir{% endblock %}
 
 {% block body %}
-    <h1>Edit Power</h1>
+    <div class="mission-edit-wrapper">
+        <h1 class="neon-title">Édition du Pouvoir</h1>
 
-    {{ include('power/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="mission-form-container">
+            {{ include('power/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
+        </div>
 
-    <a href="{{ path('app_power_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_power_index') }}" class="back-btn">Retour à la liste des pouvoirs</a>
+        </div>
 
-    {{ include('power/_delete_form.html.twig') }}
+        <div class="delete-container">
+            {{ include('power/_delete_form.html.twig') }}
+        </div>
+    </div>
 {% endblock %}

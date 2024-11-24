@@ -1,47 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SuperHero index{% endblock %}
+{% block title %}liste des Super-Héros{% endblock %}
 
 {% block body %}
-    <h1>SuperHero index</h1>
+    <div class="mission-index-wrapper">
+        <h1 class="neon-title">liste des Super-Héros</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>AlterEgo</th>
-                <th>IsAvailable</th>
-                <th>EnergyLevel</th>
-                <th>Biography</th>
-                <th>ImageName</th>
-                <th>CreatedAt</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for super_hero in super_heroes %}
-            <tr>
-                <td>{{ super_hero.id }}</td>
-                <td>{{ super_hero.name }}</td>
-                <td>{{ super_hero.alterEgo }}</td>
-                <td>{{ super_hero.isAvailable ? 'Yes' : 'No' }}</td>
-                <td>{{ super_hero.energyLevel }}</td>
-                <td>{{ super_hero.biography }}</td>
-                <td>{{ super_hero.imageName }}</td>
-                <td>{{ super_hero.createdAt ? super_hero.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}">show</a>
-                    <a href="{{ path('app_super_hero_edit', {'id': super_hero.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="9">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mission-table-container">
+            <table class="mission-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Alter Ego</th>
+                        <th>Disponible</th>
+                        <th>Niveau d'Énergie</th>
+                        <th>Biographie</th>
+                        <th>Image</th>
+                        <th>Date de Création</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for super_hero in super_heroes %}
+                    <tr>
+                        <td>{{ super_hero.name }}</td>
+                        <td>{{ super_hero.alterEgo }}</td>
+                        <td>{{ super_hero.isAvailable ? 'Oui' : 'Non' }}</td>
+                        <td>{{ super_hero.energyLevel }}</td>
+                        <td>{{ super_hero.biography }}</td>
+                        <td>{{ super_hero.imageName }}</td>
+                        <td>{{ super_hero.createdAt ? super_hero.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        <td class="actions">
+                            <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}" class="action-btn show-btn">Voir</a>
+                            <a href="{{ path('app_super_hero_edit', {'id': super_hero.id}) }}" class="action-btn edit-btn">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9" class="no-records">Aucun super-héros trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_super_hero_new') }}">Create new</a>
+        <div class="create-new-container">
+            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
+            <a href="{{ path('app_power_index') }}" class="action-btn show-btn">Liste de pouvoir</a>
+            <a href="{{ path('app_team_index') }}" class="action-btn show-btn">Liste des équipes</a>
+            <a href="{{ path('app_super_hero_new') }}" class="create-new-btn">Créer un nouveau super-héros</a>
+        </div>
+    </div>
 {% endblock %}

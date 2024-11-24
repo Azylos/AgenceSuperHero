@@ -1,39 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Power index{% endblock %}
+{% block title %}liste des Pouvoirs{% endblock %}
 
 {% block body %}
-    <h1>Power index</h1>
+    <div class="mission-index-wrapper">
+        <h1 class="neon-title">liste des Pouvoirs</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Description</th>
-                <th>Level</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for power in powers %}
-            <tr>
-                <td>{{ power.id }}</td>
-                <td>{{ power.name }}</td>
-                <td>{{ power.description }}</td>
-                <td>{{ power.level }}</td>
-                <td>
-                    <a href="{{ path('app_power_show', {'id': power.id}) }}">show</a>
-                    <a href="{{ path('app_power_edit', {'id': power.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+        <div class="mission-table-container">
+            <table class="mission-table">
+                <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Description</th>
+                        <th>Niveau</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for power in powers %}
+                    <tr>
+                        <td>{{ power.name }}</td>
+                        <td>{{ power.description }}</td>
+                        <td>{{ power.level }}</td>
+                        <td class="actions">
+                            <a href="{{ path('app_power_show', {'id': power.id}) }}" class="action-btn show-btn">Voir</a>
+                            <a href="{{ path('app_power_edit', {'id': power.id}) }}" class="action-btn edit-btn">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="5" class="no-records">Aucun pouvoir trouvé</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
 
-    <a href="{{ path('app_power_new') }}">Create new</a>
+        <div class="create-new-container">
+            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
+            <a href="{{ path('app_team_index') }}" class="action-btn show-btn">Liste des équipes</a>
+            <a href="{{ path('app_super_hero_index') }}" class="action-btn show-btn">Liste super-héro</a>
+            <a href="{{ path('app_power_new') }}" class="create-new-btn">Créer un nouveau pouvoir</a>
+        </div>
+    </div>
 {% endblock %}

@@ -1,11 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Power{% endblock %}
+{% block title %}Nouveau Pouvoir{% endblock %}
 
 {% block body %}
-    <h1>Create new Power</h1>
+    <div class="mission-create-wrapper">
+        <h1 class="neon-title">Création d'un Nouveau Pouvoir</h1>
 
-    {{ include('power/_form.html.twig') }}
+        <div class="mission-form-container">
+            {{ include('power/_form.html.twig') }}
+        </div>
 
-    <a href="{{ path('app_power_index') }}">back to list</a>
+        <div class="back-container">
+            <a href="{{ path('app_power_index') }}" class="back-btn">Retour à la liste des pouvoirs</a>
+        </div>
+    </div>
 {% endblock %}
