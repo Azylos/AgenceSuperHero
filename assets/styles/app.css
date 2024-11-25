@@ -31,7 +31,7 @@ body {
 /* Container général */
 .container {
     width: 100vw;
-    height: 66vh;
+    height: auto;
     color: #fff;
     display: flex;
     align-items: center;
@@ -160,22 +160,25 @@ body {
 .mission-detail-wrapper, 
 .mission-edit-wrapper, 
 .mission-create-wrapper {
-    max-width: 1200px;
+    max-width: 100%;
+    width: 95vw;
     margin: 2rem auto;
-    padding: 2rem;
-    background-color: rgba(0, 0, 0, 0.8);
+    padding: 3rem;
+    background-color: rgba(0, 0, 0, 0.9);
     border-radius: 20px;
     box-shadow: 0 0 15px var(--cyber-blue);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .mission-table-container {
+    width: 100%;
     overflow-x: auto;
 }
 
 /* Table des Missions */
 .mission-table {
     width: 100%;
+    table-layout: fixed;
     border-collapse: collapse;
     margin-bottom: 2rem;
     color: var(--text-white);
@@ -184,8 +187,10 @@ body {
 }
 
 .mission-table th, .mission-table td {
-    padding: 1rem;
+    padding: 1.5rem;
+    min-width: 150px;
     text-align: left;
+    font-size: 0.9rem;
     border-bottom: 1px solid var(--table-border);
 }
 
@@ -194,6 +199,7 @@ body {
     color: var(--cyber-blue);
     text-transform: uppercase;
     font-weight: bold;
+    font-size: 1rem;
 }
 
 .mission-table tr:hover {
@@ -391,7 +397,18 @@ form button:hover {
     }
 
     .actions {
-        justify-content: flex-start; /* Pour aligner à gauche les boutons sur les plus petits écrans */
+        justify-content: flex-start;
+    }
+
+    .mission-table {
+        display: block;
+        overflow-x: auto;
+    }
+
+    .mission-table th, .mission-table td {
+        display: block;
+        width: 100%;
+        text-align: left;
     }
 }
 

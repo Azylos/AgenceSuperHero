@@ -14,7 +14,7 @@
                         <th>Alter Ego</th>
                         <th>
                             {{ knp_pagination_sortable(pagination, 'Disponible', 's.available') }}
-                            {{ pagination.isSorted('isAvailable') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
+                            {{ pagination.isSorted('s.available') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
                         </th>
                         <th>
                             {{ knp_pagination_sortable(pagination, 'Niveau d\'Énergie', 's.energyLevel') }}
