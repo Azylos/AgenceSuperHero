@@ -12,8 +12,14 @@
                     <tr>
                         <th>Nom</th>
                         <th>Alter Ego</th>
-                        <th>Disponible</th>
-                        <th>Niveau d'Énergie</th>
+                        <th>
+                            {{ knp_pagination_sortable(pagination, 'Disponible', 's.available') }}
+                            {{ pagination.isSorted('isAvailable') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
+                        </th>
+                        <th>
+                            {{ knp_pagination_sortable(pagination, 'Niveau d\'Énergie', 's.energyLevel') }}
+                            {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
+                        </th>
                         <th>Biographie</th>
                         <th>Image</th>
                         <th>Date de Création</th>
@@ -21,7 +27,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                {% for super_hero in super_heroes %}
+                {% for super_hero in pagination %}
                     <tr>
                         <td>{{ super_hero.name }}</td>
                         <td>{{ super_hero.alterEgo }}</td>
@@ -43,7 +49,9 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
         <div class="create-new-container">
             <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
             <a href="{{ path('app_power_index') }}" class="action-btn show-btn">Liste de pouvoir</a>

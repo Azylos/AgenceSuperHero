@@ -7,22 +7,39 @@ use App\Form\SuperHeroType;
 use App\Service\FileUploader;
 use App\Repository\SuperHeroRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
 #[Route('/super-hero')]
 final class SuperHeroController extends AbstractController
 {
     #[Route(name: 'app_super_hero_index', methods: ['GET'])]
-    public function index(SuperHeroRepository $superHeroRepository): Response
+    public function index(Request $request, SuperHeroRepository $superHeroRepository, PaginatorInterface $paginator): Response
     {
+        $sortField = $request->query->get('sort', 's.name');
+        $sortDirection = $request->query->get('direction', 'asc');
+    
+        $queryBuilder = $superHeroRepository->createQueryBuilder('s')
+            ->orderBy($sortField, $sortDirection);
+    
+        $pagination = $paginator->paginate(
+            $queryBuilder,
+            $request->query->getInt('page', 1),
+            2,
+            [
+                'defaultSortFieldName' => 's.name',
+                'defaultSortDirection' => 'asc',
+            ]
+        );
+    
         return $this->render('super_hero/index.html.twig', [
-            'super_heroes' => $superHeroRepository->findAll(),
+            'pagination' => $pagination,
         ]);
     }
+    
 
     #[Route('/new', name: 'app_super_hero_new', methods: ['GET', 'POST'])]
     public function newHero(Request $request, EntityManagerInterface $entityManager, FileUploader $fileUploader): Response
