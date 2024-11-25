@@ -158,7 +158,6 @@ body {
 /* Wrapper général pour les missions */
 .mission-index-wrapper, 
 .mission-detail-wrapper, 
-.mission-edit-wrapper, 
 .mission-create-wrapper {
     max-width: 100%;
     width: 95vw;
@@ -167,6 +166,17 @@ body {
     background-color: rgba(0, 0, 0, 0.9);
     border-radius: 20px;
     box-shadow: 0 0 15px var(--cyber-blue);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.mission-edit-wrapper {
+    max-width: 900px;  
+    width: 90%;        
+    margin: 2rem auto; 
+    padding: 3rem;   
+    background-color: rgba(0, 0, 0, 0.9);
+    border-radius: 20px;
+    box-shadow: 0 0 20px var(--cyber-blue); 
     transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -212,15 +222,15 @@ form input[type="datetime-local"],
 form input[type="number"],
 form textarea,
 form select {
-    width: 100%;
-    padding: 0.9rem;
-    margin: 1.2rem 0;
-    border: 1px solid var(--input-border);
-    border-radius: 8px;
+    width: calc(100% - 20px); 
+    padding: 1.2rem;           
+    margin: 1.5rem 0;       
+    border: 1px solid var(--cyber-blue); 
+    border-radius: 10px;       
     background-color: #111111;
     color: var(--text-white);
     transition: border-color 0.3s, box-shadow 0.3s;
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 12px rgba(0, 255, 255, 0.4); 
 }
 
 form input[type="text"]:focus,
@@ -236,7 +246,7 @@ form select:focus {
 form label {
     font-weight: bold;
     color: var(--cyber-blue);
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.7rem;
     display: block;
     text-transform: uppercase;
 }
@@ -246,8 +256,8 @@ form button,
 .back-btn,
 .delete-form button {
     text-transform: uppercase;
-    border-radius: 8px;
-    padding: 1rem 2.5rem;
+    border-radius: 10px;
+    padding: 1rem 3rem;
     font-weight: bold;
     transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
     cursor: pointer;
@@ -257,37 +267,37 @@ form button {
     background-color: var(--neon-pink);
     border: none;
     color: var(--dark-background);
-    box-shadow: 0 0 15px var(--neon-pink);
+    box-shadow: 0 0 20px var(--neon-pink); 
 }
 
 form button:hover {
     background-color: #ff4081;
-    box-shadow: 0 0 25px var(--neon-pink), 0 0 40px #ff4081;
-    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--neon-pink), 0 0 50px #ff4081; 
+    transform: scale(1.1);
 }
 
 .back-btn {
     color: var(--cyber-blue);
     border: 2px solid var(--cyber-blue);
-    box-shadow: 0 0 15px var(--cyber-blue);
+    box-shadow: 0 0 20px var(--cyber-blue);
 }
 
 .back-btn:hover {
     background-color: var(--cyber-blue);
     color: var(--dark-background);
-    box-shadow: 0 0 25px var(--cyber-blue);
-    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--cyber-blue);
+    transform: scale(1.1);
 }
 
 .delete-form button {
     background-color: var(--danger-red);
-    box-shadow: 0 0 15px var(--danger-red);
+    box-shadow: 0 0 20px var(--danger-red);
 }
 
 .delete-form button:hover {
     background-color: #ff4444;
-    box-shadow: 0 0 25px var(--danger-red);
-    transform: scale(1.05);
+    box-shadow: 0 0 30px var(--danger-red);
+    transform: scale(1.1);
 }
 
 /* Conteneur des actions */
