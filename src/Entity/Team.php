@@ -36,7 +36,7 @@ class Team
     /**
      * @var Collection<int, Mission>
      */
-    #[ORM\OneToMany(targetEntity: Mission::class, mappedBy: 'assignedTeam')]
+    #[ORM\OneToMany(targetEntity: Mission::class, mappedBy: 'assignedTeam', fetch: 'EAGER')]
     private Collection $currentMission;
 
     public function __construct()

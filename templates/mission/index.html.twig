@@ -35,7 +35,7 @@
                             <td>{{ mission.description }}</td>
                             <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
                             <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
-                            <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : 'En cours' }}</td>
+                            <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : '' }}</td>
                             <td>{{ mission.location }}</td>
                             <td>
                                 {% for power in mission.powerRequire %}

@@ -54,6 +54,7 @@ final class TeamController extends AbstractController
     #[Route('/{id}', name: 'app_team_show', methods: ['GET'])]
     public function show(Team $team): Response
     {
+        // dd($team);
         return $this->render('team/show.html.twig', [
             'team' => $team,
         ]);
