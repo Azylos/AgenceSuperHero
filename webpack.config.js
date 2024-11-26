@@ -4,8 +4,11 @@ Encore
     .setOutputPath('public/build/')
     .setPublicPath('/build')
     .addEntry('app', './assets/app.js')
-    // .addStyleEntry('appcss', './assets/styles/app.css') // Point d'entrée du fichier Tailwind
-    // .enablePostCssLoader() // Activer PostCSS pour traiter Tailwind
+    .enablePostCssLoader((options) => {
+        options.postcssOptions = {
+          config: './postcss.config.js'
+        };
+      })
     .enableSingleRuntimeChunk()
     .cleanupOutputBeforeBuild()
     .enableSourceMaps(!Encore.isProduction())
