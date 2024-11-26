@@ -28,7 +28,8 @@ class MissionRepository extends ServiceEntityRepository
                ->setParameter('statuses', ['EN ATTENTE', 'EN COURS']);
         }
 
-        return $qb->getQuery()
+        return $qb->orderBy('m.startAt', 'desc')
+                  ->getQuery()
                   ->getResult();
     }
 }

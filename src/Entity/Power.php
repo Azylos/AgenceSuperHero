@@ -37,9 +37,16 @@ class Power
     #[ORM\ManyToMany(targetEntity: SuperHero::class, mappedBy: 'powers')]
     private Collection $superHeroes;
 
+    /**
+     * @var Collection<int, Mission>
+     */
+    #[ORM\ManyToMany(targetEntity: Mission::class, mappedBy: 'powerRequire')]
+    private Collection $missions;
+
     public function __construct()
     {
         $this->superHeroes = new ArrayCollection();
+        $this->missions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -105,6 +112,33 @@ class Power
     {
         if ($this->superHeroes->removeElement($superHero)) {
             $superHero->removePower($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Mission>
+     */
+    public function getMissions(): Collection
+    {
+        return $this->missions;
+    }
+
+    public function addMission(Mission $mission): static
+    {
+        if (!$this->missions->contains($mission)) {
+            $this->missions->add($mission);
+            $mission->addPowerRequire($this);
+        }
+
+        return $this;
+    }
+
+    public function removeMission(Mission $mission): static
+    {
+        if ($this->missions->removeElement($mission)) {
+            $mission->removePowerRequire($this);
         }
 
         return $this;

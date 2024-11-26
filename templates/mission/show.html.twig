@@ -38,6 +38,16 @@
                         <td>{{ mission.location }}</td>
                     </tr>
                     <tr>
+                        <th>Pourvoirs requis</th>
+                        <td>
+                            {% for power in mission.powerRequire %}
+                                {{ power.name }}{% if not loop.last %}, {% endif %}
+                            {% else %}
+                                Aucun pouvoir requis
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    <tr>
                         <th>Niveau de Danger</th>
                         <td>{{ mission.dangerLevel }}</td>
                     </tr>

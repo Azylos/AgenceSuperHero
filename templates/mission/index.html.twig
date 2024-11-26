@@ -23,6 +23,7 @@
                         <th>Date de début</th>
                         <th>Date de fin</th>
                         <th>Localisation</th>
+                        <th>Pouvoirs requis</th>
                         <th>Niveau de danger</th>
                         <th>Actions</th>
                     </tr>
@@ -36,6 +37,13 @@
                             <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
                             <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : 'En cours' }}</td>
                             <td>{{ mission.location }}</td>
+                            <td>
+                                {% for power in mission.powerRequire %}
+                                    {{ power.name }}{% if not loop.last %}, {% endif %}
+                                {% else %}
+                                    Aucun pouvoir requis
+                                {% endfor %}
+                            </td>                            
                             <td>{{ mission.dangerLevel }}</td>
                             <td class="actions">
                                 <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>

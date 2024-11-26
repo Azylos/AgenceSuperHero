@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Enum\Statut;
 use App\Repository\MissionRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,7 +21,7 @@ class Mission
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(type: Types::TEXT)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $description;
 
     #[ORM\Column(enumType: Statut::class)]
@@ -44,6 +46,17 @@ class Mission
 
     #[ORM\ManyToOne(inversedBy: 'currentMission')]
     private ?Team $assignedTeam = null;
+
+    /**
+     * @var Collection<int, Power>
+     */
+    #[ORM\ManyToMany(targetEntity: Power::class, inversedBy: 'missions')]
+    private Collection $powerRequire;
+
+    public function __construct()
+    {
+        $this->powerRequire = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -142,6 +155,30 @@ class Mission
     public function setAssignedTeam(?Team $assignedTeam): static
     {
         $this->assignedTeam = $assignedTeam;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Power>
+     */
+    public function getPowerRequire(): Collection
+    {
+        return $this->powerRequire;
+    }
+
+    public function addPowerRequire(Power $powerRequire): static
+    {
+        if (!$this->powerRequire->contains($powerRequire)) {
+            $this->powerRequire->add($powerRequire);
+        }
+
+        return $this;
+    }
+
+    public function removePowerRequire(Power $powerRequire): static
+    {
+        $this->powerRequire->removeElement($powerRequire);
 
         return $this;
     }

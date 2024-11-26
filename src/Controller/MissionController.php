@@ -18,7 +18,6 @@ final class MissionController extends AbstractController
     #[Route(name: 'app_mission_index', methods: ['GET'])]
     public function index(Request $request, MissionRepository $missionRepository, PaginatorInterface $paginator): Response
     {
-        $status = null;
         $statusSelected = $request->query->get('status');
 
         $filter = $missionRepository->missionFilterStatus($statusSelected);
