@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\SuperHero;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\AST\WhereClause;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -16,28 +17,17 @@ class SuperHeroRepository extends ServiceEntityRepository
         parent::__construct($registry, SuperHero::class);
     }
 
-    //    /**
-    //     * @return SuperHero[] Returns an array of SuperHero objects
-    //     */
-    //    public function findByExampleField($value): array
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->orderBy('s.id', 'ASC')
-    //            ->setMaxResults(10)
-    //            ->getQuery()
-    //            ->getResult()
-    //        ;
-    //    }
+    public function indexHeroFilter($filter, $orderBy, $powerSelected = null): mixed
+    {
+        $qb = $this->createQueryBuilder('s');
 
-    //    public function findOneBySomeField($value): ?SuperHero
-    //    {
-    //        return $this->createQueryBuilder('s')
-    //            ->andWhere('s.exampleField = :val')
-    //            ->setParameter('val', $value)
-    //            ->getQuery()
-    //            ->getOneOrNullResult()
-    //        ;
-    //    }
+        if($powerSelected){
+            $qb->join('s.powers', 'p')
+                ->andWhere('p.id = :val')
+                ->setParameter('val', $powerSelected);
+        }
+
+        return $qb->getQuery()
+                  ->getResult();
+    }
 }

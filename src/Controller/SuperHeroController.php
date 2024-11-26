@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\SuperHero;
 use App\Form\SuperHeroType;
+use App\Repository\PowerRepository;
 use App\Service\FileUploader;
 use App\Repository\SuperHeroRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,26 +18,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 final class SuperHeroController extends AbstractController
 {
     #[Route(name: 'app_super_hero_index', methods: ['GET'])]
-    public function index(Request $request, SuperHeroRepository $superHeroRepository, PaginatorInterface $paginator): Response
+    public function index(Request $request, SuperHeroRepository $superHeroRepository, PowerRepository $powerRepository, PaginatorInterface $paginator): Response
     {
-        $sortField = $request->query->get('sort', 's.name');
-        $sortDirection = $request->query->get('direction', 'asc');
-    
-        $queryBuilder = $superHeroRepository->createQueryBuilder('s')
-            ->orderBy($sortField, $sortDirection);
+        $filterSelected = $request->query->get('sort', 's.name');
+        $orderBySelected = $request->query->get('direction', 'asc');
+        $powers = $powerRepository->findAll();
+        $selectedPowerId = $request->query->get('power');
+        
+        if($selectedPowerId){
+            $filter = $superHeroRepository->indexHeroFilter($filterSelected, $orderBySelected, $selectedPowerId);
+        } else {
+            $filter = $superHeroRepository->indexHeroFilter($filterSelected, $orderBySelected);
+        }
     
         $pagination = $paginator->paginate(
-            $queryBuilder,
+            $filter,
             $request->query->getInt('page', 1),
             2,
             [
-                'defaultSortFieldName' => 's.name',
-                'defaultSortDirection' => 'asc',
+                'filter' => 's.name',
+                'orderBy' => 'asc',
             ]
         );
-    
+    // dd($pagination);
         return $this->render('super_hero/index.html.twig', [
             'pagination' => $pagination,
+            'powers' => $powers,
+            'selectedPowerId' => $selectedPowerId,
         ]);
     }
     

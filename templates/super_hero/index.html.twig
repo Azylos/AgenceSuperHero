@@ -5,7 +5,18 @@
 {% block body %}
     <div class="mission-index-wrapper">
         <h1 class="neon-title">liste des Super-Héros</h1>
-
+        <form method="get" action="{{ path('app_super_hero_index') }}">
+            <label for="power">filtre Héro par un pouvoir:</label>
+            <select name="power" id="power" onchange="this.form.submit()">
+                <option value="">-- selection pouvoir --</option>
+                {% for power in powers %}
+                    <option value="{{ power.id }}" {% if power.id == selectedPowerId %}selected{% endif %}>
+                        {{ power.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <button type="button" onclick="resetFilter()">Reset</button>
+        </form>
         <div class="mission-table-container">
             <table class="mission-table">
                 <thead>
@@ -14,11 +25,11 @@
                         <th>Alter Ego</th>
                         <th>
                             {{ knp_pagination_sortable(pagination, 'Disponible', 's.available') }}
-                            {{ pagination.isSorted('s.available') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
+                            {{ pagination.isSorted('s.available') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
                         </th>
                         <th>
                             {{ knp_pagination_sortable(pagination, 'Niveau d\'Énergie', 's.energyLevel') }}
-                            {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '' }}
+                            {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
                         </th>
                         <th>Biographie</th>
                         <th>Image</th>
@@ -59,4 +70,10 @@
             <a href="{{ path('app_super_hero_new') }}" class="create-new-btn">Créer un nouveau super-héros</a>
         </div>
     </div>
+    <script>
+        function resetFilter() {
+            document.getElementById('power').value = '';
+            document.forms[0].submit();
+        }
+    </script>
 {% endblock %}
