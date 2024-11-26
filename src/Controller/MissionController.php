@@ -6,20 +6,40 @@ use App\Entity\Mission;
 use App\Form\MissionType;
 use App\Repository\MissionRepository;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 #[Route('/mission')]
 final class MissionController extends AbstractController
 {
     #[Route(name: 'app_mission_index', methods: ['GET'])]
-    public function index(MissionRepository $missionRepository): Response
+    public function index(Request $request, MissionRepository $missionRepository, PaginatorInterface $paginator): Response
     {
+        $status = null;
+        $statusSelected = $request->query->get('status');
+
+        $filter = $missionRepository->missionFilterStatus($statusSelected);
+    // dd($statusSelected, $filter);
+        $pagination = $paginator->paginate(
+            $filter,
+            $request->query->getInt('page', 1),
+            5,
+        );
+
         return $this->render('mission/index.html.twig', [
-            'missions' => $missionRepository->findAll(),
+            'pagination' => $pagination,
+            'statusSelected' => $statusSelected
         ]);
+
+
+        // return $this->render('super_hero/index.html.twig', [
+        //     'pagination' => $pagination,
+        //     'powers' => $powers,
+        //     'selectedPowerId' => $selectedPowerId,
+        // ]);
     }
 
     #[Route('/new', name: 'app_mission_new', methods: ['GET', 'POST'])]

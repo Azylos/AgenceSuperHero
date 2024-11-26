@@ -34,13 +34,13 @@ final class SuperHeroController extends AbstractController
         $pagination = $paginator->paginate(
             $filter,
             $request->query->getInt('page', 1),
-            2,
+            5,
             [
                 'filter' => 's.name',
                 'orderBy' => 'asc',
             ]
         );
-    // dd($pagination);
+
         return $this->render('super_hero/index.html.twig', [
             'pagination' => $pagination,
             'powers' => $powers,

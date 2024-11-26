@@ -16,28 +16,19 @@ class MissionRepository extends ServiceEntityRepository
         parent::__construct($registry, Mission::class);
     }
 
-//    /**
-//     * @return Mission[] Returns an array of Mission objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('m.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    public function missionFilterStatus($statusSelected = null): mixed
+    {
+        $qb = $this->createQueryBuilder('m');
 
-//    public function findOneBySomeField($value): ?Mission
-//    {
-//        return $this->createQueryBuilder('m')
-//            ->andWhere('m.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+        if ($statusSelected == 'historique') {
+            $qb->andWhere('m.status IN (:statuses)')
+               ->setParameter('statuses', ['TERMINÉ', 'ÉCHOUÉ']);
+        } else if ($statusSelected == 'actuel' || $statusSelected === null) {
+            $qb->andWhere('m.status IN (:statuses)')
+               ->setParameter('statuses', ['EN ATTENTE', 'EN COURS']);
+        }
+
+        return $qb->getQuery()
+                  ->getResult();
+    }
 }

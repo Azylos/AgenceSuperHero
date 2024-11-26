@@ -5,7 +5,14 @@
 {% block body %}
     <div class="mission-index-wrapper">
         <h1 class="neon-title">Liste des missions</h1>
-
+        <form method="get" action="{{ path('app_mission_index') }}">
+            <label for="status">Choisir le type de missions :</label>
+            <select name="status" id="status" onchange="this.form.submit()">
+                <option value="actuel" {% if statusSelected == 'actuel' %}selected{% endif %}>Missions Actuelles</option>
+                <option value="historique" {% if statusSelected == 'historique' %}selected{% endif %}>Historique des Missions</option>
+            </select>
+            <button type="button" onclick="resetFilter()">Reset</button>
+        </form>
         <div class="mission-table-container">
             <table class="mission-table">
                 <thead>
@@ -21,13 +28,13 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for mission in missions %}
+                    {% for mission in pagination %}
                         <tr>
                             <td>{{ mission.title }}</td>
                             <td>{{ mission.description }}</td>
                             <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
                             <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
-                            <td>{{ mission.endAt ? mission.endAt|date('d-m-Y H:i:s') : '' }}</td>
+                            <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : 'En cours' }}</td>
                             <td>{{ mission.location }}</td>
                             <td>{{ mission.dangerLevel }}</td>
                             <td class="actions">
@@ -43,10 +50,18 @@
                 </tbody>
             </table>
         </div>
-
+        <div class="pagination">
+            {{ knp_pagination_render(pagination) }}
+        </div>
         <div class="create-new-container">
             <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
             <a href="{{ path('app_mission_new') }}" class="create-new-btn">Créer une nouvelle mission</a>
         </div>
     </div>
+    <script>
+        function resetFilter() {
+            document.getElementById('status').value = '';
+            document.forms[0].submit();
+        }
+    </script>
 {% endblock %}
