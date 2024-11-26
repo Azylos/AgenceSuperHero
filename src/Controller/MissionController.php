@@ -22,7 +22,7 @@ final class MissionController extends AbstractController
         $statusSelected = $request->query->get('status');
 
         $filter = $missionRepository->missionFilterStatus($statusSelected);
-    // dd($statusSelected, $filter);
+
         $pagination = $paginator->paginate(
             $filter,
             $request->query->getInt('page', 1),
@@ -33,13 +33,6 @@ final class MissionController extends AbstractController
             'pagination' => $pagination,
             'statusSelected' => $statusSelected
         ]);
-
-
-        // return $this->render('super_hero/index.html.twig', [
-        //     'pagination' => $pagination,
-        //     'powers' => $powers,
-        //     'selectedPowerId' => $selectedPowerId,
-        // ]);
     }
 
     #[Route('/new', name: 'app_mission_new', methods: ['GET', 'POST'])]
