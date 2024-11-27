@@ -58,35 +58,39 @@
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Statut</th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Niveau de danger</th>
                                     <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Dates</th>
+                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% if team.currentMission|length > 0 %}
                                     {% for mission in team.currentMission %}
                                         <tr class="bg-gray-100 border-b">
-                                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ loop.index }}</td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {{ mission.title }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {{ mission.status.value }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                {{ mission.dangerLevel }}
-                                            </td>
-                                            <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                Début: {{ mission.startAt|date('Y-m-d H:i') }}
-                                                {% if mission.endAt %}
-                                                    <br>Fin: {{ mission.endAt|date('Y-m-d H:i') }}
-                                                {% else %}
-                                                    <br>Fin: En cours
-                                                {% endif %}
-                                            </td>
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ loop.index }}</td>
+                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {{ mission.title }}
+                                                </td>
+                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {{ mission.status.value }}
+                                                </td>
+                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    {{ mission.dangerLevel }}
+                                                </td>
+                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    Début: {{ mission.startAt|date('Y-m-d H:i') }}
+                                                    {% if mission.endAt %}
+                                                        <br>Fin: {{ mission.endAt|date('Y-m-d H:i') }}
+                                                    {% else %}
+                                                        <br>Fin: Non déterminer
+                                                    {% endif %}
+                                                </td>
+                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                    <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
+                                                </td>
                                         </tr>
                                     {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 text-center">
+                                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm font-medium bg-gray-100 text-gray-900 text-center">
                                             <em>Aucune mission assignée</em>
                                         </td>
                                     </tr>

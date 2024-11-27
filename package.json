@@ -20,6 +20,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
-        "cobe": "^0.6.3"
+        "cobe": "^0.6.3",
+        "flowbite": "^2.5.2"
     }
 }

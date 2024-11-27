@@ -3,29 +3,128 @@
 {% block title %}Liste des missions{% endblock %}
 
 {% block body %}
-    <div class="mission-index-wrapper">
-        <h1 class="neon-title">Liste des missions</h1>
-        <form method="get" action="{{ path('app_mission_index') }}">
-            <label for="status">Choisir le type de missions :</label>
-            <select name="status" id="status" onchange="this.form.submit()">
+
+<div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <form class="max-w-sm mx-auto" action="{{ path('app_mission_index') }}">
+        <label for="underline_select" class="sr-only">Choisir le type de missions :</label>
+        <select id="underline_select" onchange="this.form.submit()" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                 <option value="actuel" {% if statusSelected == 'actuel' %}selected{% endif %}>Missions Actuelles</option>
                 <option value="historique" {% if statusSelected == 'historique' %}selected{% endif %}>Historique des Missions</option>
-            </select>
-            <button type="button" onclick="resetFilter()">Reset</button>
-        </form>
+        </select>
+        {# <button type="button" onclick="resetFilter()">Reset</button> #}
+    </form>
+    <div class="pagination">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">
+                        Titre
+                    </th>
+                    {# <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Description
+                        </div>
+                    </th> #}
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Status
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Date de début
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Date de fin
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Localisation
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Pouvoirs requis
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
+                            Niveau de danger
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <span class="sr-only">Edit</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for mission in pagination %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                            {{ mission.title }}
+                        </th>
+                        {# <td class="px-6 py-4">
+                            {{ mission.description }}
+                        </td> #}
+                        <td class="px-6 py-4 status {{ mission.status.value|lower }}">
+                            {{ mission.status.value }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : '' }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ mission.location }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% for power in mission.powerRequire %}
+                                {{ power.name }}{% if not loop.last %}, {% endif %}
+                            {% else %}
+                                Aucun pouvoir requis
+                            {% endfor %}
+                        </td>
+                        <td class="px-6 py-4">
+                            {{ mission.dangerLevel }}
+                        </td>
+                        <td class="px-6 py-4 text-right">
+                                <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
+                                <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td colspan="9" class="px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                            Aucune mission trouvée
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+    <script>
+        function resetFilter() {
+            document.getElementById('status').value = '';
+            document.forms[0].submit();
+        }
+    </script> 
+
+    {# <div class="mission-index-wrapper">
+       
         <div class="mission-table-container">
             <table class="mission-table">
                 <thead>
                     <tr>
-                        <th>Titre</th>
-                        <th>Description</th>
-                        <th>Status</th>
-                        <th>Date de début</th>
-                        <th>Date de fin</th>
-                        <th>Localisation</th>
-                        <th>Pouvoirs requis</th>
-                        <th>Niveau de danger</th>
-                        <th>Actions</th>
+
                     </tr>
                 </thead>
                 <tbody>
@@ -46,8 +145,7 @@
                             </td>                            
                             <td>{{ mission.dangerLevel }}</td>
                             <td class="actions">
-                                <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
-                                <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
+
                             </td>
                         </tr>
                     {% else %}
@@ -58,18 +156,12 @@
                 </tbody>
             </table>
         </div>
-        <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </div>
+
         <div class="create-new-container">
             <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
             <a href="{{ path('app_mission_new') }}" class="create-new-btn">Créer une nouvelle mission</a>
         </div>
     </div>
-    <script>
-        function resetFilter() {
-            document.getElementById('status').value = '';
-            document.forms[0].submit();
-        }
-    </script>
+    #}
+
 {% endblock %}
