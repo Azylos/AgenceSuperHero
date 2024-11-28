@@ -27,6 +27,8 @@ class SuperHeroRepository extends ServiceEntityRepository
                 ->setParameter('val', $powerSelected);
         }
 
+        $qb->orderBy($filter, $orderBy);
+
         return $qb->getQuery()
                   ->getResult();
     }
