@@ -1,46 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}liste des Pouvoirs{% endblock %}
+{% block title %}Liste des Pouvoirs{% endblock %}
 
 {% block body %}
-    <div class="mission-index-wrapper">
-        <h1 class="neon-title">liste des Pouvoirs</h1>
-
-        <div class="mission-table-container">
-            <table class="mission-table">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Description</th>
-                        <th>Niveau</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Liste des Pouvoirs</h1>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-cyber-blue dark:text-gray-400">
+            <thead class="text-xs text-neon-pink uppercase bg-dark-gray dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Nom</th>
+                    <th scope="col" class="px-6 py-3">Description</th>
+                    <th scope="col" class="px-6 py-3">Niveau</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for power in powers %}
-                    <tr>
-                        <td>{{ power.name }}</td>
-                        <td>{{ power.description }}</td>
-                        <td>{{ power.level }}</td>
-                        <td class="actions">
-                            <a href="{{ path('app_power_show', {'id': power.id}) }}" class="action-btn show-btn">Voir</a>
+                    <tr class="bg-dark-gray border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4">{{ power.name }}</td>
+                        <td class="px-6 py-4">{{ power.description }}</td>
+                        <td class="px-6 py-4">{{ power.level }}</td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ path('app_power_show', {'id': power.id}) }}" class="action-btn show-btn bg-cyber-blue">Voir</a>
                             <a href="{{ path('app_power_edit', {'id': power.id}) }}" class="action-btn edit-btn">Modifier</a>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="5" class="no-records">Aucun pouvoir trouvé</td>
+                        <td colspan="4" class="no-records px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                            Aucun pouvoir trouvé
+                        </td>
                     </tr>
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="create-new-container">
-            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
-            <a href="{{ path('app_team_index') }}" class="action-btn show-btn">Liste des équipes</a>
-            <a href="{{ path('app_super_hero_index') }}" class="action-btn show-btn">Liste super-héro</a>
-            <a href="{{ path('app_power_new') }}" class="create-new-btn">Créer un nouveau pouvoir</a>
-        </div>
+            </tbody>
+        </table>
     </div>
+
+    <!-- Actions -->
+    <div class="create-new-container mt-6">
+        <a href="{{ path('app_home') }}" class="action-btn back-btn bg-cyber-blue">Retour à l'accueil</a>
+        <a href="{{ path('app_team_index') }}" class="action-btn show-btn bg-cyber-blue">Liste des équipes</a>
+        <a href="{{ path('app_super_hero_index') }}" class="action-btn show-btn bg-cyber-blue">Liste des super-héros</a>
+        <a href="{{ path('app_power_new') }}" class="create-new-btn">Créer un nouveau pouvoir</a>
+    </div>
+</div>
 {% endblock %}

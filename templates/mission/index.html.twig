@@ -4,21 +4,21 @@
 
 {% block body %}
 
-<div class="max-w-lg p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+        <h1 class="neon-title">liste des missions</h1>
     <form class="max-w-sm mx-auto" action="{{ path('app_mission_index') }}">
         <label for="underline_select" class="sr-only">Choisir le type de missions :</label>
-        <select id="underline_select" onchange="this.form.submit()" class="block py-2.5 px-0 w-full text-sm text-gray-500 bg-transparent border-0 border-b-2 border-gray-200 appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+        <select id="underline_select" name="status" onchange="this.form.submit()" class="block py-2.5 px-0 w-full text-sm text-neon-pink bg-transparent border-0 border-b-2 border-neon-pink appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
                 <option value="actuel" {% if statusSelected == 'actuel' %}selected{% endif %}>Missions Actuelles</option>
                 <option value="historique" {% if statusSelected == 'historique' %}selected{% endif %}>Historique des Missions</option>
         </select>
-        {# <button type="button" onclick="resetFilter()">Reset</button> #}
     </form>
     <div class="pagination">
         {{ knp_pagination_render(pagination) }}
     </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-        <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+        <table class="w-full text-sm text-left rtl:text-right text-cyber-blue dark:text-gray-400">
+            <thead class="text-xs text-neon-pink uppercase bg-dark-gray dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3">
                         Titre
@@ -65,8 +65,8 @@
             </thead>
             <tbody>
                 {% for mission in pagination %}
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
-                        <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                    <tr class="bg-dark-gray border-b dark:bg-gray-800 dark:border-gray-700">
+                        <th scope="row" class="px-6 py-4 font-medium text-cyber-blue whitespace-nowrap dark:text-white">
                             {{ mission.title }}
                         </th>
                         {# <td class="px-6 py-4">
@@ -95,7 +95,7 @@
                             {{ mission.dangerLevel }}
                         </td>
                         <td class="px-6 py-4 text-right">
-                                <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
+                                <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn bg-cyber-blue">Voir</a>
                                 <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
                         </td>
                     </tr>
@@ -109,7 +109,10 @@
             </tbody>
         </table>
     </div>
-
+    <div class="create-new-container">
+        <a href="{{ path('app_home') }}" class="action-btn back-btn bg-cyber-blue">Retour à l'accueil</a>
+        <a href="{{ path('app_mission_new') }}" class="create-new-btn">Créer une nouvelle mission</a>
+    </div>
 </div>
     <script>
         function resetFilter() {
@@ -117,51 +120,5 @@
             document.forms[0].submit();
         }
     </script> 
-
-    {# <div class="mission-index-wrapper">
-       
-        <div class="mission-table-container">
-            <table class="mission-table">
-                <thead>
-                    <tr>
-
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for mission in pagination %}
-                        <tr>
-                            <td>{{ mission.title }}</td>
-                            <td>{{ mission.description }}</td>
-                            <td class="status {{ mission.status.value|lower }}">{{ mission.status.value }}</td>
-                            <td>{{ mission.startAt ? mission.startAt|date('d-m-Y H:i:s') : '' }}</td>
-                            <td>{{ mission.endAt ? mission.endAt|date('Y-m-d H:i') : '' }}</td>
-                            <td>{{ mission.location }}</td>
-                            <td>
-                                {% for power in mission.powerRequire %}
-                                    {{ power.name }}{% if not loop.last %}, {% endif %}
-                                {% else %}
-                                    Aucun pouvoir requis
-                                {% endfor %}
-                            </td>                            
-                            <td>{{ mission.dangerLevel }}</td>
-                            <td class="actions">
-
-                            </td>
-                        </tr>
-                    {% else %}
-                        <tr>
-                            <td colspan="9" class="no-records">Aucune mission trouver</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="create-new-container">
-            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
-            <a href="{{ path('app_mission_new') }}" class="create-new-btn">Créer une nouvelle mission</a>
-        </div>
-    </div>
-    #}
 
 {% endblock %}

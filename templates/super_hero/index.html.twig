@@ -1,79 +1,93 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}liste des Super-Héros{% endblock %}
+{% block title %}Liste des Super-Héros{% endblock %}
 
 {% block body %}
-    <div class="mission-index-wrapper">
-        <h1 class="neon-title">liste des Super-Héros</h1>
-        <form method="get" action="{{ path('app_super_hero_index') }}">
-            <label for="power">filtre Héro par un pouvoir:</label>
-            <select name="power" id="power" onchange="this.form.submit()">
-                <option value="">-- selection pouvoir --</option>
-                {% for power in powers %}
-                    <option value="{{ power.id }}" {% if power.id == selectedPowerId %}selected{% endif %}>
-                        {{ power.name }}
-                    </option>
-                {% endfor %}
-            </select>
-            <button type="button" onclick="resetFilter()">Reset</button>
-        </form>
-        <div class="mission-table-container">
-            <table class="mission-table">
-                <thead>
-                    <tr>
-                        <th>Nom</th>
-                        <th>Alter Ego</th>
-                        <th>
-                            {{ knp_pagination_sortable(pagination, 'Disponible', 's.available') }}
-                            {{ pagination.isSorted('s.available') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
-                        </th>
-                        <th>
-                            {{ knp_pagination_sortable(pagination, 'Niveau d\'Énergie', 's.energyLevel') }}
-                            {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
-                        </th>
-                        <th>Biographie</th>
-                        <th>Image</th>
-                        <th>Date de Création</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Liste des Super-Héros</h1>
+
+    <!-- Formulaire de filtre par pouvoir -->
+    <div class="grid grid-cols-2 gap-6 mb-6">
+        <div class="flex items-center justify-start">
+            <form method="get" action="{{ path('app_super_hero_index') }}" class="w-full max-w-sm">
+                <label for="power" class="text-neon-pink block">Filtrer par pouvoir :</label>
+                <select name="power" id="power" onchange="this.form.submit()" class="block py-2.5 px-0 w-full text-sm text-neon-pink bg-transparent border-0 border-b-2 border-neon-pink appearance-none dark:text-gray-400 dark:border-gray-700 focus:outline-none focus:ring-0 focus:border-gray-200 peer">
+                    <option value="">-- Sélectionner un pouvoir --</option>
+                    {% for power in powers %}
+                        <option value="{{ power.id }}" {% if power.id == selectedPowerId %}selected{% endif %}>
+                            {{ power.name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+        <div class="flex items-center justify-end">
+                <button type="button" onclick="resetFilter()" class="btnform mt-2 text-neon-pink">Réinitialiser</button>
+        </div>
+    </div>
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+        <table class="w-full text-sm text-left rtl:text-right text-cyber-blue dark:text-gray-400">
+            <thead class="text-xs text-neon-pink uppercase bg-dark-gray dark:bg-gray-700 dark:text-gray-400">
+                <tr>
+                    <th scope="col" class="px-6 py-3">Nom</th>
+                    <th scope="col" class="px-6 py-3">Alter Ego</th>
+                    <th scope="col" class="px-6 py-3">
+                        {{ knp_pagination_sortable(pagination, 'Disponible', 's.available') }}
+                        {{ pagination.isSorted('s.available') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        {{ knp_pagination_sortable(pagination, 'Niveau d\'Énergie', 's.energyLevel') }}
+                        {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
+                    </th>
+                    <th scope="col" class="px-6 py-3">Biographie</th>
+                    <th scope="col" class="px-6 py-3">Image</th>
+                    <th scope="col" class="px-6 py-3">Date de Création</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for super_hero in pagination %}
-                    <tr>
-                        <td>{{ super_hero.name }}</td>
-                        <td>{{ super_hero.alterEgo }}</td>
-                        <td>{{ super_hero.isAvailable ? 'Oui' : 'Non' }}</td>
-                        <td>{{ super_hero.energyLevel }}</td>
-                        <td>{{ super_hero.biography }}</td>
-                        <td>{{ super_hero.imageName }}</td>
-                        <td>{{ super_hero.createdAt ? super_hero.createdAt|date('d-m-Y H:i:s') : '' }}</td>
-                        <td class="actions">
-                            <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}" class="action-btn show-btn">Voir</a>
+                    <tr class="bg-dark-gray border-b dark:bg-gray-800 dark:border-gray-700">
+                        <td class="px-6 py-4">{{ super_hero.name }}</td>
+                        <td class="px-6 py-4">{{ super_hero.alterEgo }}</td>
+                        <td class="px-6 py-4">{{ super_hero.isAvailable ? 'Oui' : 'Non' }}</td>
+                        <td class="px-6 py-4">{{ super_hero.energyLevel }}</td>
+                        <td class="px-6 py-4">{{ super_hero.biography }}</td>
+                        <td class="px-6 py-4">{{ super_hero.imageName }}</td>
+                        <td class="px-6 py-4">{{ super_hero.createdAt ? super_hero.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                        <td class="px-6 py-4 text-right">
+                            <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}" class="action-btn show-btn bg-cyber-blue">Voir</a>
                             <a href="{{ path('app_super_hero_edit', {'id': super_hero.id}) }}" class="action-btn edit-btn">Modifier</a>
                         </td>
                     </tr>
                 {% else %}
                     <tr>
-                        <td colspan="9" class="no-records">Aucun super-héros trouvé</td>
+                        <td colspan="9" class="no-records px-6 py-4 text-center text-gray-500 dark:text-gray-400">
+                            Aucun super-héros trouvé
+                        </td>
                     </tr>
                 {% endfor %}
-                </tbody>
-            </table>
-        </div>
-        <div class="pagination">
-            {{ knp_pagination_render(pagination) }}
-        </div>
-        <div class="create-new-container">
-            <a href="{{ path('app_home') }}" class="action-btn back-btn">Retour à l'accueil</a>
-            <a href="{{ path('app_power_index') }}" class="action-btn show-btn">Liste de pouvoir</a>
-            <a href="{{ path('app_team_index') }}" class="action-btn show-btn">Liste des équipes</a>
-            <a href="{{ path('app_super_hero_new') }}" class="create-new-btn">Créer un nouveau super-héros</a>
-        </div>
+            </tbody>
+        </table>
     </div>
-    <script>
-        function resetFilter() {
-            document.getElementById('power').value = '';
-            document.forms[0].submit();
-        }
-    </script>
+
+    <!-- Pagination -->
+    <div class="pagination mt-4">
+        {{ knp_pagination_render(pagination) }}
+    </div>
+
+    <!-- Actions -->
+    <div class="create-new-container mt-6">
+        <a href="{{ path('app_home') }}" class="action-btn back-btn bg-cyber-blue">Retour à l'accueil</a>
+        <a href="{{ path('app_power_index') }}" class="action-btn show-btn bg-cyber-blue">Liste des pouvoirs</a>
+        <a href="{{ path('app_team_index') }}" class="action-btn show-btn bg-cyber-blue">Liste des équipes</a>
+        <a href="{{ path('app_super_hero_new') }}" class="create-new-btn">Créer un nouveau super-héros</a>
+    </div>
+</div>
+
+<script>
+    function resetFilter() {
+        document.getElementById('power').value = '';
+        document.forms[0].submit();
+    }
+</script>
 {% endblock %}

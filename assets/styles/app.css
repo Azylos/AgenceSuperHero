@@ -428,7 +428,7 @@ form label {
 /* Boutons */
 form button,
 .back-btn,
-.delete-form button {
+.delete-form button, .btnform {
     text-transform: uppercase;
     border-radius: 10px;
     padding: 1rem 3rem;
@@ -437,14 +437,14 @@ form button,
     cursor: pointer;
 }
 
-form button {
+form button, .btnform {
     background-color: var(--neon-pink);
     border: none;
     color: var(--dark-background);
     box-shadow: 0 0 20px var(--neon-pink); 
 }
 
-form button:hover {
+form button:hover, .btnform:hover {
     background-color: #ff4081;
     box-shadow: 0 0 30px var(--neon-pink), 0 0 50px #ff4081; 
     transform: scale(1.1);
@@ -507,6 +507,7 @@ form button:hover {
 }
 
 .edit-btn {
+    color: var(--neon-pink);
     border-color: var(--neon-pink);
     box-shadow: 0 0 10px var(--neon-pink);
 }
@@ -515,7 +516,7 @@ form button:hover {
     background-color: var(--neon-pink);
     color: var(--dark-background);
     transform: scale(1.05);
-    box-shadow: 0 0 20px var(--neon-pink);
+    box-shadow: 0 0 25px var(--neon-pink);
 }
 
 /* Aucun enregistrement trouvé */
