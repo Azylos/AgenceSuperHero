@@ -32,4 +32,23 @@ class MissionRepository extends ServiceEntityRepository
                   ->getQuery()
                   ->getResult();
     }
+
+    public function currentOrPendingMission($status): mixed
+    {
+        $qb = $this->createQueryBuilder('m')
+                    ->leftJoin('m.assignedTeam', 't')
+                    ->andWhere('t.id is not null');
+
+        if ($status == 'EN ATTENTE') {
+            $qb->andWhere('m.status = :status')
+               ->setParameter('status',$status );
+        } else if ($status == 'EN COURS') {
+            $qb->andWhere('m.status = :status')
+               ->setParameter('status',$status );
+        }
+
+        return $qb->orderBy('m.startAt', 'desc')
+                  ->getQuery()
+                  ->getResult();
+    }
 }

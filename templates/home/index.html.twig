@@ -17,6 +17,58 @@
                 </p>
             </div>
         </div>
+      <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+            <div class="flex items-center justify-between mb-4">
+                <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Missions</h5>
+
+                <!-- Filtre par statut -->
+                <form method="get" class="flex items-center">
+                    <label for="mStatus" class="mr-2 text-sm text-gray-900 dark:text-white">Filtrer par statut</label>
+                    <select id="mStatus" name="mStatus" onchange="this.form.submit()" class="form-select rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                        <option value="EN COURS" {% if selectedStatus == 'EN COURS' %}selected{% endif %}>En cours</option>
+                        <option value="EN ATTENTE" {% if selectedStatus == 'EN ATTENTE' %}selected{% endif %}>En attente</option>
+                    </select>
+                </form>
+
+            </div>
+
+            <div class="flow-root">
+                <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <!-- Pour chaque mission, vous allez créer un item dans la liste -->
+                    {% for mission in missions %}
+                    <li class="py-3 sm:py-4">
+                        <div class="flex items-center justify-between">
+                            <!-- Titre de la mission -->
+                            <div class="flex-1 min-w-0 ms-4">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                    nom de la mission : {{ mission.title }}
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    emplacement : {{ mission.location }}  
+                                </p>
+                                <p class="text-sm text-gray-500 truncate dark:text-gray-400">
+                                    équipe en charge : {{mission.assignedTeam.name}}
+                                </p>
+                                <div class="inline-flex items-center text-base font-semibold text-gray-900 dark:text-white">
+                                    difficulté {{ mission.dangerLevel}}
+                                </div>
+                            </div>
+                            <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                                Détail
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="py-3 sm:py-4">
+                        <p class="text-sm font-medium text-gray-900 dark:text-white">Aucune mission trouvée pour le statut "{{ selectedStatus }}"</p>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="pagination">
+                {{ knp_pagination_render(missions) }}
+            </div>
+        </div>
 
         <!-- Section Statut Système -->
         <div id="status-system-container" class="status-box cyber-border">
