@@ -17,14 +17,13 @@
                 </p>
             </div>
         </div>
-      <div class="w-full max-w-md p-4 bg-white border border-gray-200 rounded-lg shadow sm:p-8 dark:bg-gray-800 dark:border-gray-700">
+        <div class="w-full max-w-md p-4 bg-dark-gray border border-cyber-blue rounded-lg shadow-cyber sm:p-8 dark:bg-gray-800 dark:border-gray-700">
             <div class="flex items-center justify-between mb-4">
-                <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white">Missions</h5>
+                <h5 class="text-xl font-bold leading-none text-gray-900 dark:text-white neon-text">Missions</h5>
 
                 <!-- Filtre par statut -->
                 <form method="get" class="flex items-center">
-                    <label for="mStatus" class="mr-2 text-sm text-gray-900 dark:text-white">Filtrer par statut</label>
-                    <select id="mStatus" name="mStatus" onchange="this.form.submit()" class="form-select rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+                    <select id="mStatus" name="mStatus" onchange="this.form.submit()" class="form-select bg-dark-gray rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyber-blue">
                         <option value="EN COURS" {% if selectedStatus == 'EN COURS' %}selected{% endif %}>En cours</option>
                         <option value="EN ATTENTE" {% if selectedStatus == 'EN ATTENTE' %}selected{% endif %}>En attente</option>
                     </select>
@@ -34,13 +33,12 @@
 
             <div class="flow-root">
                 <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-                    <!-- Pour chaque mission, vous allez créer un item dans la liste -->
                     {% for mission in missions %}
-                    <li class="py-3 sm:py-4">
+                    <li class="py-3 sm:py-4 hover:bg-[#333] hover:text-white hover:shadow-cyber">
                         <div class="flex items-center justify-between">
                             <!-- Titre de la mission -->
                             <div class="flex-1 min-w-0 ms-4">
-                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white">
+                                <p class="text-sm font-medium text-gray-900 truncate dark:text-white neon-text">
                                     nom de la mission : {{ mission.title }}
                                 </p>
                                 <p class="text-sm text-gray-500 truncate dark:text-gray-400">
@@ -53,7 +51,7 @@
                                     difficulté {{ mission.dangerLevel}}
                                 </div>
                             </div>
-                            <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">
+                            <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="text-sm font-medium text-cyber-blue dark:text-cyber-blue hover:shadow-neon">
                                 Détail
                             </a>
                         </div>
@@ -69,7 +67,7 @@
                 {{ knp_pagination_render(missions) }}
             </div>
         </div>
-
+        
         <!-- Section Statut Système -->
         <div id="status-system-container" class="status-box cyber-border">
             <h2 class="neon-text">Statut Système</h2>

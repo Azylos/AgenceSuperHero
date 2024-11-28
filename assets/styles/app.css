@@ -212,9 +212,10 @@ body {
 
 /* Texte Neon & Hologram */
 .neon-text {
-    font-size: 1.25rem;
+    /* font-size: 1.25rem; */
     color: var(--neon-pink);
     text-transform: uppercase;
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink);
     animation: neonGlow 1.5s ease-in-out infinite alternate;
     text-align: center;
 }
@@ -285,14 +286,48 @@ body {
 
 /* Effets d'animation */
 @keyframes neonGlow {
-    0% { text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink); }
-    100% { text-shadow: 0 0 20px var(--neon-pink), 0 0 30px var(--neon-pink); }
+    0% { text-shadow: 0 0 15px var(--neon-pink), 0 0 25px var(--neon-pink), 0 0 35px var(--neon-pink); }
+    100% { text-shadow: 0 0 25px var(--neon-pink), 0 0 35px var(--neon-pink), 0 0 45px var(--neon-pink); }
 }
 
 @keyframes hologramFlicker {
     0%, 100% { opacity: 0.8; }
     50% { opacity: 1; }
 }
+/* Effet néon sur les bordures de la sélection du filtre */
+form select, .form-select {
+    border: 2px solid var(--cyber-blue);
+    box-shadow: 0 0 10px var(--cyber-blue), 0 0 20px var(--cyber-blue);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+/* Texte du filtre avec effet néon */
+form label {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink), 0 0 20px var(--neon-pink);
+}
+
+/* Si vous voulez un effet neon sur les éléments hover */
+form select:hover, .form-select:hover {
+    border-color: var(--cyber-blue);
+    box-shadow: 0 0 15px var(--cyber-blue), 0 0 30px var(--cyber-blue);
+}
+
+/* Ajout d'un effet sur les éléments de la liste des missions */
+li:hover {
+    background-color: rgba(255, 0, 128, 0.2); /* Ajout d'une légère couleur néon en hover */
+}
+/* Améliorer l'effet de la pagination */
+.pagination a {
+    color: var(--cyber-blue);
+    text-shadow: 0 0 5px var(--cyber-blue), 0 0 10px var(--cyber-blue);
+}
+
+/* Vous pouvez aussi ajouter un effet néon à ces éléments pour plus de style */
+.pagination a:hover {
+    text-shadow: 0 0 15px var(--cyber-blue), 0 0 20px var(--cyber-blue), 0 0 30px var(--cyber-blue);
+}
+
 
 /* Wrapper général pour les missions */
 .mission-index-wrapper, 

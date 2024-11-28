@@ -8,7 +8,17 @@ module.exports = {
     "./node_modules/flowbite/**/*.js"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'neon-pink': '#ff00ff',
+        'cyber-blue': '#00ffff',
+        'dark-gray': '#333333',
+      },
+      boxShadow: {
+        'neon': '0 0 15px 3px rgba(255, 0, 255, 0.5)',  // effet néon rose
+        'cyber': '0 0 15px 3px rgba(0, 255, 255, 0.5)',  // effet néon bleu
+      },
+    },
   },
   plugins: [
     require('flowbite/plugin')
