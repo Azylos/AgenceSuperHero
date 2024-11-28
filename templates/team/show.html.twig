@@ -3,7 +3,7 @@
 {% block title %}Détails de l'Équipe{% endblock %}
 
 {% block body %}
-    <div class="mission-detail-wrapper">
+    <div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
         <h1 class="neon-title">Détails de l'Équipe</h1>
 
         <div class="mission-table-container">
@@ -49,33 +49,32 @@
             <div class="overflow-x-auto sm:mx-0.5 lg:mx-0.5">
                 <div class="py-2 inline-block min-w-full sm:px-6 lg:px-8">
                     <div class="overflow-hidden">
-                        <h2 class="text-lg font-medium mb-4">Missions Associées</h2>
+                        <h2 class="text-lg font-medium mb-4 text-neon-pink">Missions Associées</h2>
                         <table class="min-w-full">
-                            <thead class="bg-white border-b">
+                            <thead class="bg-dark-gray border-b">
                                 <tr>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">#</th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Titre de la Mission</th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Statut</th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Niveau de danger</th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Dates</th>
-                                    <th scope="col" class="text-sm font-medium text-gray-900 px-6 py-4 text-left">Action</th>
+                                    <th scope="col" class="text-sm font-medium text-neon-pink px-6 py-4 text-left">#</th>
+                                    <th scope="col" class="text-sm font-medium text-neon-pink px-6 py-4 text-left">Titre de la Mission</th>
+                                    <th scope="col" class="text-sm font-medium text-neon-pink px-6 py-4 text-left">Statut</th>
+                                    <th scope="col" class="text-sm font-medium text-neon-pink px-6 py-4 text-left">Niveau de danger</th>
+                                    <th scope="col" class="text-sm font-medium text-neon-pink px-6 py-4 text-left">Dates</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% if team.currentMission|length > 0 %}
                                     {% for mission in team.currentMission %}
-                                        <tr class="bg-gray-100 border-b">
-                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ loop.index }}</td>
-                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                        <tr class="bg-dark-gray border-b">
+                                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-cyber-blue">{{ loop.index }}</td>
+                                                <td class="text-sm text-cyber-blue font-light px-6 py-4 whitespace-nowrap">
                                                     {{ mission.title }}
                                                 </td>
-                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <td class="text-sm text-cyber-blue font-light px-6 py-4 whitespace-nowrap">
                                                     {{ mission.status.value }}
                                                 </td>
-                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <td class="text-sm text-cyber-blue font-light px-6 py-4 whitespace-nowrap">
                                                     {{ mission.dangerLevel }}
                                                 </td>
-                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                                                <td class="text-sm text-cyber-blue font-light px-6 py-4 whitespace-nowrap">
                                                     Début: {{ mission.startAt|date('Y-m-d H:i') }}
                                                     {% if mission.endAt %}
                                                         <br>Fin: {{ mission.endAt|date('Y-m-d H:i') }}
@@ -83,14 +82,14 @@
                                                         <br>Fin: Non déterminer
                                                     {% endif %}
                                                 </td>
-                                                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                                                    <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn">Voir</a>
+                                                <td class="text-sm text-cyber-blue font-light px-6 py-4 whitespace-nowrap">
+                                                    <a href="{{ path('app_mission_show', {'id': mission.id}) }}" class="action-btn show-btn bg-cyber-blue">Voir</a>
                                                 </td>
                                         </tr>
                                     {% endfor %}
                                 {% else %}
                                     <tr>
-                                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm font-medium bg-gray-100 text-gray-900 text-center">
+                                        <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm font-medium bg-cyber-blue text-neon-pink text-center">
                                             <em>Aucune mission assignée</em>
                                         </td>
                                     </tr>
@@ -103,7 +102,7 @@
         </div>
 
         <div class="actions-container">
-            <a href="{{ path('app_team_index') }}" class="action-btn back-btn">Retour à la liste des équipes</a>
+            <a href="{{ path('app_team_index') }}" class="action-btn back-btn bg-cyber-blue">Retour à la liste des équipes</a>
             <a href="{{ path('app_team_edit', {'id': team.id}) }}" class="action-btn edit-btn">Modifier</a>
         </div>
 

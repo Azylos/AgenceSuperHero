@@ -3,7 +3,7 @@
 {% block title %}Détails du Pouvoir{% endblock %}
 
 {% block body %}
-    <div class="mission-detail-wrapper">
+    <div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
         <h1 class="neon-title">Détails du Pouvoir</h1>
 
         <div class="mission-table-container">
@@ -30,7 +30,7 @@
         </div>
 
         <div class="actions-container">
-            <a href="{{ path('app_power_index') }}" class="action-btn back-btn">Retour à la liste des pouvoirs</a>
+            <a href="{{ path('app_power_index') }}" class="action-btn back-btn bg-cyber-blue">Retour à la liste des pouvoirs</a>
             <a href="{{ path('app_power_edit', {'id': power.id}) }}" class="action-btn edit-btn">Modifier</a>
         </div>
 

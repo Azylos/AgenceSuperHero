@@ -3,16 +3,12 @@
 {% block title %}Détails de la Mission{% endblock %}
 
 {% block body %}
-    <div class="mission-detail-wrapper">
+    <div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
         <h1 class="neon-title">Détails de la Mission</h1>
 
         <div class="mission-table-container">
             <table class="mission-table">
                 <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ mission.id }}</td>
-                    </tr>
                     <tr>
                         <th>Titre</th>
                         <td>{{ mission.title }}</td>
@@ -80,7 +76,7 @@
         </div>
 
         <div class="actions-container">
-            <a href="{{ path('app_mission_index') }}" class="action-btn back-btn">Retour à la liste des missions</a>
+            <a href="{{ path('app_mission_index') }}" class="action-btn back-btn bg-cyber-blue">Retour à la liste des missions</a>
             <a href="{{ path('app_mission_edit', {'id': mission.id}) }}" class="action-btn edit-btn">Modifier</a>
         </div>
 
