@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Mission;
 use App\Form\MissionType;
+use App\Service\GeocodingService;
 use App\Repository\MissionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -35,13 +36,28 @@ final class MissionController extends AbstractController
     }
 
     #[Route('/new', name: 'app_mission_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, GeocodingService $geocodingService): Response
     {
         $mission = new Mission();
         $form = $this->createForm(MissionType::class, $mission);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            // Récupérer la localisation entrée par l'utilisateur
+            $location = $mission->getLocation();
+
+            // Effectuer le géocodage pour récupérer latitude/longitude
+            $coordinates = $geocodingService->getCoordinatesByLocation($location);
+
+            // Si des coordonnées sont trouvées, les attribuer à la mission
+            if ($coordinates) {
+                $mission->setLatitude($coordinates['latitude']);
+                $mission->setLongitude($coordinates['longitude']);
+            } else {
+                $mission->setLatitude(null);
+                $mission->setLongitude(null);
+            }
+
             $entityManager->persist($mission);
             $entityManager->flush();
 
@@ -63,12 +79,25 @@ final class MissionController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_mission_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Mission $mission, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Mission $mission, EntityManagerInterface $entityManager, GeocodingService $geocodingService): Response
     {
         $form = $this->createForm(MissionType::class, $mission);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $location = $mission->getLocation();
+
+            $coordinates = $geocodingService->getCoordinatesByLocation($location);
+    
+            if ($coordinates) {
+                $mission->setLatitude($coordinates['latitude']);
+                $mission->setLongitude($coordinates['longitude']);
+            } else {
+                $this->addFlash('error', 'La localisation spécifiée n\'a pas pu être géocodée.');
+                $mission->setLatitude(null);
+                $mission->setLongitude(null);
+            }
+            
             $entityManager->flush();
 
             return $this->redirectToRoute('app_mission_index', [], Response::HTTP_SEE_OTHER);

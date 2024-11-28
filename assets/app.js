@@ -20,12 +20,19 @@ document.addEventListener('DOMContentLoaded', function () {
             missionsData = [];  // Si les données sont mal formées, on utilise un tableau vide
         }
 
-        // Filtrer les missions invalides (latitude ou longitude null)
-        missionsData = missionsData.filter(mission => mission.latitude && mission.longitude);
+        // Vérifier si missionsData est bien un tableau
+        if (Array.isArray(missionsData)) {
+            // Filtrer les missions invalides (latitude ou longitude null)
+            missionsData = missionsData.filter(mission => mission.latitude && mission.longitude);
 
-        if (missionsData.length === 0) {
-            console.warn('No valid mission data available.');
-            return;  // Si aucune mission valide, ne pas initialiser le globe
+            if (missionsData.length === 0) {
+                console.warn('No valid mission data available.');
+                return;  // Si aucune mission valide, ne pas initialiser le globe
+            }
+
+        } else {
+            console.error('missionsData is not an array:', missionsData);
+            return;  // Si ce n'est pas un tableau, on arrête l'exécution
         }
 
         let phi = 0;  // Angle de rotation automatique
@@ -109,7 +116,5 @@ document.addEventListener('DOMContentLoaded', function () {
             window.removeEventListener('mousemove', onMouseMove);
             window.removeEventListener('mouseup', onMouseUp);
         });
-    } else {
-        console.error('Element with ID "missions-data" not found.');
-    }
+    } 
 });
