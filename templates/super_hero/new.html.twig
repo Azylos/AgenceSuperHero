@@ -1,17 +1,95 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Nouveau Super-Héros{% endblock %}
+{% block title %}Création d'un Nouveau Super-Héros{% endblock %}
 
 {% block body %}
-    <div class="mission-create-wrapper">
-        <h1 class="neon-title">Création d'un Nouveau Super-Héros</h1>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Création d'un Nouveau Super-Héros</h1>
 
-        <div class="mission-form-container">
-            {{ include('super_hero/_form.html.twig') }}
+    <div class="mission-form-container mt-6">
+        {{ form_start(form) }}
+            <div class="mb-6">
+                <div class="flex items-center">
+                    {{ form_widget(form.available, {
+                        'attr': {
+                            'id': 'link-checkbox',
+                            'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600'
+                        }
+                    }) }}
+                    <label for="link-checkbox" class="ms-2 text-sm font-medium text-cyber-blue dark:text-gray-300">
+                        Disponible
+                    </label>
+                </div>
+                {{ form_errors(form.available) }}
+            </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.name, 'Nom du Héro', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div>
+                {{ form_label(form.alterEgo, 'Alter Ego', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.alterEgo, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.alterEgo) }}
+            </div>
+            <div>
+                {{ form_label(form.energyLevel, 'Niveau d\'Énergie', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.energyLevel, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.energyLevel) }}
+            </div>
+
+            <div>
+                {{ form_label(form.createdAt, 'Date de Création', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.createdAt, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.createdAt) }}
+            </div>
+        </div>
+        <div>
+        <div class="mb-6">
+            <label for="biography" class="block mb-2 text-sm font-medium text-cyber-blue dark:text-white">Biographie</label>
+                {{ form_widget(form.biography, {
+                'attr': {
+                'id': 'biography',
+                'class': 'block p-2.5 w-full text-sm text-cyber-blue bg-dark-gray rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500',
+                'placeholder': 'Écrivez vos pensées ici...'
+                }
+                }) }}
+                {{ form_errors(form.biography) }}
         </div>
 
-        <div class="back-container">
-            <a href="{{ path('app_super_hero_index') }}" class="back-btn" style="position: relative; left: 9rem;">Retour à la liste des super-héros</a>
+        <div class="mb-6">
+            {{ form_label(form.imageName) }}
+            {{ form_widget(form.imageName) }}
+            {{ form_errors(form.imageName) }}
         </div>
+        <div class="mb-6">
+            {{ form_label(form.powers, 'Pouvoirs', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            
+            <div class="flex flex-wrap gap-4">
+                {% for power in form.powers %}
+                    <div class="flex items-center w-1/5">
+                        {{ form_widget(power, {
+                            'attr': {
+                                'id': 'checkbox-' ~ loop.index,
+                                'class': 'w-4 h-4 text-blue-600 bg-gray-100 border-cyber-blue rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 transition-colors duration-200 hover:border-blue-500 dark:hover:border-blue-400'
+                            }
+                        }) }}
+                        {{ form_label(power, null, {'label_attr': {'class': 'ms-2 text-sm font-medium text-cyber-blue dark:text-gray-400'}}) }}
+                    </div>
+                {% endfor %}
+            </div>
+            {{ form_errors(form.powers) }}
+        </div>
+            <div class="flex justify-center mt-6">
+                <button type="submit" class="text-white bg-cyber-blue hover:bg-cyber-blue-dark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Créer le Super-Héros</button>
+            </div>
+
+        {{ form_end(form) }}
     </div>
+
+    <div class="back-container mt-6">
+        <a href="{{ path('app_super_hero_index') }}" class="back-btn text-cyber-blue hover:text-blue-500" style="position: relative; left: 9rem;">Retour à la liste des super-héros</a>
+    </div>
+</div>
 {% endblock %}

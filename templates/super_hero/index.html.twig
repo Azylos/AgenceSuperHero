@@ -40,7 +40,6 @@
                         {{ pagination.isSorted('s.energyLevel') ? (pagination.direction == 'asc' ? '▲' : '▼') : '▼' }}
                     </th>
                     <th scope="col" class="px-6 py-3">Biographie</th>
-                    <th scope="col" class="px-6 py-3">Image</th>
                     <th scope="col" class="px-6 py-3">Date de Création</th>
                 </tr>
             </thead>
@@ -52,7 +51,6 @@
                         <td class="px-6 py-4">{{ super_hero.isAvailable ? 'Oui' : 'Non' }}</td>
                         <td class="px-6 py-4">{{ super_hero.energyLevel }}</td>
                         <td class="px-6 py-4">{{ super_hero.biography }}</td>
-                        <td class="px-6 py-4">{{ super_hero.imageName }}</td>
                         <td class="px-6 py-4">{{ super_hero.createdAt ? super_hero.createdAt|date('d-m-Y H:i:s') : '' }}</td>
                         <td class="px-6 py-4 text-right">
                             <a href="{{ path('app_super_hero_show', {'id': super_hero.id}) }}" class="action-btn show-btn bg-cyber-blue">Voir</a>

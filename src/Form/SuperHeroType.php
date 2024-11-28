@@ -18,6 +18,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class SuperHeroType extends AbstractType
 {
@@ -67,7 +68,7 @@ class SuperHeroType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('biography', TextType::class, [
+            ->add('biography', TextareaType::class, [
                 'label' => 'Biographie',
                 'required' => false,
                 'constraints' => [
