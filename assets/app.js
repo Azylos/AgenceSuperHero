@@ -1,37 +1,25 @@
-/*
- * Welcome to your app's main JavaScript file!
- *
- * This file will be included onto the page via the importmap() Twig function,
- * which should already be in your base.html.twig.
- */
 import './styles/app.css';
-
 import createGlobe from 'cobe';
-/*
- * NavBar
- */
-console.clear();
-const list = document.querySelectorAll('.list');
-const nav = document.querySelector('.navigation');
-list.forEach(item => item.addEventListener('click', function(e){
-    list.forEach(li => li.classList.remove('active'));
-    e.currentTarget.classList.add('active');
-}));
 
-/*
- * Globe
- */
+console.clear();
+
 document.addEventListener('DOMContentLoaded', function () {
     const canvas = document.getElementById('cobeglobe-canvas');
     if (!canvas) return;
 
-    let phi = 0; // Angle de rotation automatique
+    const markersData = [
+        { location: [40.7128, -74.0060], name: "New York" }, // New York
+        { location: [48.8647, 2.3490], name: "Paris" },      // Paris
+        { location: [34.0522, -118.2437], name: "Los Angeles" }, // Los Angeles
+    ];
+
+    let phi = 0;  // Angle de rotation automatique
     let isDragging = false;
     let startX = 0;
-    let velocity = 0; // Vitesse de rotation suite au drag
+    let velocity = 0;  // Vitesse de rotation
     let width = canvas.offsetWidth;
 
-    // Création du globe
+    // Création du globe avec les marqueurs
     const globe = createGlobe(canvas, {
         devicePixelRatio: 2,
         width: width * 2,
@@ -45,17 +33,18 @@ document.addEventListener('DOMContentLoaded', function () {
         baseColor: [1, 1, 1],
         markerColor: [251 / 255, 100 / 255, 21 / 255],
         glowColor: [1.2, 1.2, 1.2],
-        markers: [],
+        markers: markersData.map(marker => ({
+            location: marker.location,
+            size: 0.05,  // Taille du marqueur
+            label: marker.name  // Nom de la ville
+        })),
         onRender: (state) => {
-            // Ajouter la vitesse obtenue par le drag à la rotation automatique
             state.phi = phi;
-            phi += 0.005 + velocity; // Ajouter la vitesse de drag
-            phi %= 2 * Math.PI; // Garder phi entre 0 et 2 PI
+            phi += 0.005 + velocity;  // Ajouter la vitesse de drag
+            phi %= 2 * Math.PI;  // Garder phi entre 0 et 2 PI
             state.width = width * 2;
             state.height = width * 2;
-
-            // Décélérer la rotation obtenue par le drag
-            velocity *= 0.95; // Réduction progressive de la vitesse
+            velocity *= 0.95;  // Réduction progressive de la vitesse
         }
     });
 
@@ -63,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function () {
         canvas.style.opacity = '1';
     });
 
-    // Gestion du redimensionnement du canvas
+    // Fonction pour gérer le redimensionnement du canvas
     const onResize = () => {
         if (canvas) {
             width = canvas.offsetWidth;
@@ -74,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function () {
     window.addEventListener('resize', onResize);
     onResize();
 
-    // Gestion du drag de la souris
+    // Gestion du drag de la souris sur le globe
     const onMouseDown = (event) => {
         isDragging = true;
         startX = event.clientX;
@@ -83,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const onMouseMove = (event) => {
         if (isDragging) {
             const deltaX = event.clientX - startX;
-            velocity = -deltaX * 0.002; // Ajuster la sensibilité
+            velocity = -deltaX * 0.002;  // Ajuster la sensibilité
             startX = event.clientX;
         }
     };
