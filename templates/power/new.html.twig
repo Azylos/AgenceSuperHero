@@ -3,15 +3,36 @@
 {% block title %}Nouveau Pouvoir{% endblock %}
 
 {% block body %}
-    <div class="mission-create-wrapper">
-        <h1 class="neon-title">Création d'un Nouveau Pouvoir</h1>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Création d'un Nouveau Pouvoir</h1>
 
-        <div class="mission-form-container">
-            {{ include('power/_form.html.twig') }}
+    <div class="mission-form-container mt-6">
+        {{ form_start(form) }}
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.name, 'Nom du Héro', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+            <div>
+                {{ form_label(form.level, 'Niveau du Pouvoir (1 à 5)', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.level, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.level) }}
+            </div>
         </div>
+            <div>
+                {{ form_label(form.description, 'Description du Pouvoir', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'bg-dark-gray border border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.description) }}
+            </div>
+            <div class="flex justify-center mt-6">
+                <button type="submit" class="text-white bg-cyber-blue hover:bg-cyber-blue-dark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">Créer le Super-Héros</button>
+            </div>
+            {{ form_end(form) }}
 
-        <div class="back-container">
-            <a href="{{ path('app_power_index') }}" class="back-btn" style="position: relative; left: 9rem;">Retour à la liste des pouvoirs</a>
+        <div class="back-container mt-6">
+            <a href="{{ path('app_super_hero_index') }}" class="back-btn text-cyber-blue hover:text-blue-500" style="position: relative; left: 9rem;">Retour à la liste des super-héros</a>
         </div>
     </div>
+</div>
 {% endblock %}

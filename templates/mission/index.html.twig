@@ -50,6 +50,11 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         <div class="flex items-center">
+                            Équipe
+                        </div>
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        <div class="flex items-center">
                             Pouvoirs requis
                         </div>
                     </th>
@@ -83,6 +88,13 @@
                         </td>
                         <td class="px-6 py-4">
                             {{ mission.location }}
+                        </td>
+                        <td class="px-6 py-4">
+                            {% if mission.assignedTeam %}
+                                <strong>{{ mission.assignedTeam.name }}</strong>
+                            {% else %}
+                                Aucune équipe assignée
+                            {% endif %}                        
                         </td>
                         <td class="px-6 py-4">
                             {% for power in mission.powerRequire %}

@@ -3,33 +3,62 @@
 {% block title %}Éditer Équipe{% endblock %}
 
 {% block body %}
-    <div class="mission-edit-wrapper">
-        <h1 class="neon-title">Édition de l'Équipe</h1>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Édition de l'Équipe</h1>
 
-        <div class="mission-form-container">
-            {{ include('team/_form.html.twig', {'button_label': 'Mettre à Jour'}) }}
+    <div class="mission-form-container mt-6">
+        {{ form_start(form) }}
+
+        <div class="flex items-center">
+            {{ form_widget(form.active, {'attr': {'class': 'mr-2'}}) }}
+            {{ form_label(form.active, 'Équipe Active', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_errors(form.active) }}
+        </div>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.name, 'Nom de l\'Équipe', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                {{ form_label(form.createdAt, 'Date de Création', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.createdAt, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.createdAt) }}
+            </div>
         </div>
 
-        <div class="team-members-container">
-            <h2>Membres Actuels de l'Équipe</h2>
-            {% if members|length > 0 %}
-                <ul>
-                    {% for member in members %}
-                        <li>{{ member.name }} ({{ member.alterEgo }})
-                        </li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>Aucun membre n'est actuellement dans cette équipe.</p>
-            {% endif %}
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form_label(form.leader, 'Chef d\'Équipe', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_widget(form.leader, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.leader) }}
         </div>
 
-        <div class="back-container">
-            <a href="{{ path('app_team_index') }}" class="back-btn" style="position: relative; left: 30rem;">Retour à la liste des équipes</a>
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form_label(form.members, 'Membres de l\'Équipe (hors chef)', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_widget(form.members, {'attr': {'class': 'bg-dark-gray text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.members) }}
         </div>
 
-        <div class="delete-container">
-            {{ include('team/_delete_form.html.twig') }}
+        <div class="flex justify-center mt-6">
+            <button type="submit" class="text-white bg-cyber-blue hover:bg-cyber-blue-dark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                Mettre à Jour l'Équipe
+            </button>
+        </div>
+
+        {{ form_end(form) }}
+
+        <div class="flex justify-between mt-10">
+            <div class="back-container">
+                <a href="{{ path('app_team_index') }}" class="back-btn text-cyber-blue hover:text-blue-500">
+                    Retour à la liste des équipes
+                </a>
+            </div>
+            
+            <div class="delete-container">
+                {{ include('team/_delete_form.html.twig') }}
+            </div>
         </div>
     </div>
+</div>
 {% endblock %}

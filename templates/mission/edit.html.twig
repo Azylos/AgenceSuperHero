@@ -3,19 +3,87 @@
 {% block title %}Éditer Mission{% endblock %}
 
 {% block body %}
-    <div class="mission-edit-wrapper">
-        <h1 class="neon-title">Édition de la mission</h1>
+<div class="max-w-full relative top-10 p-6 bg-dark-gray border border-cyber-blue rounded-lg shadow-neon dark:bg-gray-800 dark:border-gray-700 m-10">
+    <h1 class="neon-title">Édition de la Mission</h1>
 
-        <div class="mission-form-container">
-            {{ include('mission/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
+    <div class="mission-form-container mt-6">
+        {{ form_start(form) }}
+
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.title, 'Titre de la Mission', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.title, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.title) }}
+            </div>
+
+            <div>
+                {{ form_label(form.status, 'Statut de la Mission', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.status, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.status) }}
+            </div>
         </div>
 
-        <div class="back-container">
-            <a href="{{ path('app_mission_index') }}" class="back-btn" style="position: relative; left: 30rem;">Retour à la liste des missions</a>
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form_label(form.description, 'Description de la Mission', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_widget(form.description, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.description) }}
         </div>
 
-        <div class="delete-container">
-            {{ include('mission/_delete_form.html.twig') }}
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.startAt, 'Date de Début', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.startAt, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.startAt) }}
+            </div>
+
+            <div>
+                {{ form_label(form.endAt, 'Date de Fin', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.endAt, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.endAt) }}
+            </div>
         </div>
+
+        <div class="relative z-0 w-full mb-6 group">
+            {{ form_label(form.location, 'Localisation', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_widget(form.location, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.location) }}
+        </div>
+
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                {{ form_label(form.dangerLevel, 'Niveau de Danger', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.dangerLevel, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.dangerLevel) }}
+            </div>
+
+            <div class="relative z-0 w-full mb-6 group">
+                {{ form_label(form.assignedTeam, 'Équipe Assignée', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+                {{ form_widget(form.assignedTeam, {'attr': {'class': 'bg-dark-gray border border-gray-300 text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+                {{ form_errors(form.assignedTeam) }}
+            </div>
+        </div>
+
+        <div>
+            {{ form_label(form.powerRequire, 'Pouvoirs Requis', {'label_attr': {'class': 'text-sm font-medium text-cyber-blue dark:text-white'}}) }}
+            {{ form_widget(form.powerRequire, {'attr': {'class': 'bg-dark-gray text-cyber-blue text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'}}) }}
+            {{ form_errors(form.powerRequire) }}
+        </div>
+
+        <div class="flex justify-center mt-6">
+            <button type="submit" class="text-white bg-cyber-blue hover:bg-cyber-blue-dark focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                Mettre à jour la Mission
+            </button>
+        </div>
+
+        {{ form_end(form) }}
     </div>
+
+    <div class="back-container mt-6">
+        <a href="{{ path('app_mission_index') }}" class="back-btn text-cyber-blue hover:text-blue-500" style="position: relative; left: 9rem;">Retour à la liste des missions</a>
+    </div>
+
+    <div class="delete-container mt-6">
+        {{ include('mission/_delete_form.html.twig') }}
+    </div>
+</div>
 {% endblock %}
