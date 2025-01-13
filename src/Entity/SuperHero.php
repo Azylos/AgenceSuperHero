@@ -18,9 +18,18 @@ class SuperHero
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Range(
+        min: 3,
+        max: 50,
+        notInRangeMessage: 'Le nom du héro doit être compris entre {{ min }} et {{ max }} caractères.'
+    )]
     private ?string $name;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Assert\Range(
+        max: 50,
+        notInRangeMessage: 'L\'alter ego doit avoir {{ max }} caractères.'
+    )]
     private ?string $alterEgo;
 
     #[ORM\Column]
@@ -35,6 +44,10 @@ class SuperHero
     private ?int $energyLevel;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Range(
+        max: 1000,
+        notInRangeMessage: 'La biographie doit avoir {{ max }} caractères.'
+    )]
     private ?string $biography = null;
     
 

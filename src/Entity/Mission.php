@@ -19,9 +19,18 @@ class Mission
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Range(
+        min: 3,
+        max: 100,
+        notInRangeMessage: 'Le titre doit être compris entre {{ min }} et {{ max }} caractères.'
+    )]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Assert\Range(
+        max: 1000,
+        notInRangeMessage: 'La mission ne peut pas dépasser {{ max }} caractères.'
+    )]
     private ?string $description;
 
     #[ORM\Column(enumType: Statut::class)]
@@ -34,6 +43,10 @@ class Mission
     private ?\DateTimeImmutable $endAt;
 
     #[ORM\Column(length: 255)]
+    #[Assert\Range(
+        max: 255,
+        notInRangeMessage: 'La localisation ne peut pas dépasser {{ max }} caractères.'
+    )]
     private ?string $location;
 
     #[ORM\Column]
